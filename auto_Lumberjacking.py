@@ -1,12 +1,3 @@
-#class Tree():
-#    def __init__(self, x, y):
-#        self.StaticX = x
-#        self.StaticY = y
-#        self.StaticID = 
-#        self.StaticHue = 
-#        self.StaticZ = 
-        
-
 # Auto Lumberjacking by Cray
 # ===============================
 
