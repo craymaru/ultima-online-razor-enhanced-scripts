@@ -1,8 +1,12 @@
+# Auto Mining by Cray
+# ===============================
+
+# IMPORTS
+# ===============================
 import time
 
-#===================================================================
-
-# SETTINGS
+# SETTINGS: Mining
+# ===============================
 pickaxes = [0x4007CAC9, 0x400AF7DE, 0x4007CAC8, 0x4007CAC7]
 mini_ore_organize_bag = 0x4002B142
 fire_beetle = 0x0001207D
@@ -10,15 +14,13 @@ roonbook = 0x40030BAA
 bank_rune = 0
 runes = range(1, 16)
 
-#===================================================================
-
-# CREATE PETFOOD
+# SETTINGS: PetFood
+# ===============================
 pet_serial = fire_beetle
 trush_poach_serial = 0x4002FD51
 
-#===================================================================
-
-# ITEM ID
+# ITEM_ID
+# ===============================
 mini_ore = 0x19b7
 ores = {
     0x19b8: "small ore",
@@ -48,8 +50,8 @@ bank_items = {
     0x5732: "crystalline blackrock"
 }
 
-#===================================================================
-
+# DEFINES
+# ===============================
 def OrganizeToBank():
     
     RecallToRunebook(bank_rune)
@@ -68,6 +70,7 @@ def OrganizeToBank():
 
 
 def RecallToRunebook(rune):
+
     Items.UseItem(roonbook)
     Gumps.WaitForGump(89, 3000)
     Misc.SendMessage("Rune: %s" % rune)
@@ -100,8 +103,6 @@ def Mining():
             mining_count += 1
         Misc.Pause(1000)
         
-        
-        
         # MINI ORE INTO BAG
         while Items.FindByID(mini_ore, -1, Player.Backpack.Serial):
             item = Items.FindByID(mini_ore, -1, Player.Backpack.Serial)
@@ -131,11 +132,8 @@ def Mining():
                 Target.TargetExecute(fire_beetle)
                 Misc.Pause(500)
 
-# ===================================================================
-# PETFOOD
-# ===================================================================
-
-# Foods
+# ITEM_ID: Foods
+# ===============================
 foods = {
     0x097B: {"name": "fish", "type": "etc"},
     0x097D: {"name": "cheese", "type": "etc"},
@@ -149,7 +147,8 @@ foods = {
     0x09F2: {"name": "ribs", "type": "meat"}
 }
 
-        
+# DEFINES: PetFood
+# ===============================
 def PetFood(pet_serial, trush_poach_serial):
     
     global ate_meat
@@ -187,8 +186,8 @@ def PetFood(pet_serial, trush_poach_serial):
                 Misc.Pause(500)
     Misc.Pause(1000)
 
-#===================================================================
-
+# RUN
+# ===============================
 while True:
     PetFood(pet_serial, trush_poach_serial)
     for i in range(5):
