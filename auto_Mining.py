@@ -39,7 +39,7 @@ ore_colors = {
     0x08ab: "Valorite"
 }
 bank_items = {
-    0x1BF2: "ingot",
+    0x1BF2: "Ingot",
     0x3192: "Dark Sapphire",
     0x3193: "Turquoise",
     0x3194: "Perfect Emerald",
@@ -62,9 +62,14 @@ def OrganizeToBank():
             Player.ChatSay(48, "bank")
             Misc.Pause(500)
             item = Items.FindByID(bank_item, -1, Player.Backpack.Serial)
-            Misc.SendMessage("Item: %s, %s" % (item.Name, item.Amount))
-            Items.Move(item, Player.Bank.Serial, 0)
-            Misc.Pause(500)
+            if item:
+                if item.ItemID == 0x1BF2:
+                    ingot_color = ore_colors[item.Hue] + " "
+                else:
+                    ingot_color = ""
+                Misc.SendMessage("Item: %s%s %s" % (ingot_color, bank_items[bank_item], item.Amount))
+                Items.Move(item, Player.Bank.Serial, 0)
+                Misc.Pause(500)
             count += 1
     Misc.Pause(1000)
 
