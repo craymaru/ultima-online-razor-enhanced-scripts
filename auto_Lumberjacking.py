@@ -21,9 +21,9 @@ runes = range(1, 44) # How many runes are in the Runic-Atlas
 log = 0x1BDD
 board = 0x1BD7
 bank_items = {
-    0x1BDD: "log",
-    0x1BD7: "board",
-    0x2F5F: "switch",
+    0x1BDD: "Log",
+    0x1BD7: "Board",
+    0x2F5F: "Switch",
     0x318F: "Bark Fragment",
     0x3190: "Parasitic Plant",
     0x3191: "Luminescent Fungi",
@@ -79,7 +79,7 @@ def LogToBoard():
     
     for log_color in log_colors.keys():
         item = Items.FindByID(log, log_color, Player.Backpack.Serial)
-        if item is not None:
+        if item:
             Target.Cancel()
             Misc.Pause(50)
             Misc.SendMessage(log)
@@ -91,14 +91,16 @@ def LogToBoard():
 def Bank():
     # BANK
     RecallToAtlas(bank_rune)
-    Player.ChatSay(12, "bank")
-    Items.Move(0x4006F2B5, 0x4002F5DE, 0)
+    
     for bank_item in bank_items.keys():
         count = 0
         while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 10):
             item = Items.FindByID(bank_item, -1, Player.Backpack.Serial)
-            Items.Move(item, Player.Bank, 0)
-            Misc.Pause(500)
+            if item:
+                Player.ChatSay(12, "bank")
+                Misc.Pause(500)
+                Items.Move(item, Player.Bank, 0)
+                Misc.Pause(500)
             count += 1
     Misc.Pause(1000)
 
