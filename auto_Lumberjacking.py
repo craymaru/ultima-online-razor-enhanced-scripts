@@ -102,7 +102,6 @@ def Bank():
                 Items.Move(item, Player.Bank, 0)
                 Misc.Pause(500)
             count += 1
-    Misc.Pause(1000)
 
 
 def RecallToRunebook(rune):
@@ -111,7 +110,7 @@ def RecallToRunebook(rune):
     rune_button = rune + 50
     Gumps.SendAction(89, rune_button)
     Misc.SendMessage("Rune: %s" % rune_button)
-    Misc.Pause(2000)
+    Misc.Pause(500)
 
 
 def RecallToAtlas(rune):
