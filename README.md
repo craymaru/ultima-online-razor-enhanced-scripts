@@ -10,7 +10,6 @@
 
 ## train_Magery_simply.py
 > Mageryの練習🎓
-> [name=Craymaru] [time=Thu, Feb 13, 2020 6:08] 
 
 ## train_Necromancy.py
 > Necromancyの練習💀
