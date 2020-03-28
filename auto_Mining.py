@@ -84,16 +84,23 @@ class ColorfulMassage:
         self.cc += 1
         return self.cc
 colorful = ColorfulMassage()
-        
+
+def TargetCansel():
+    Misc.Pause(50)
+    Target.Cancel()
+    Misc.Pause(50)
+
 def OrganizeToBank():
     
     RecallToRunebook(bank_rune)
+
+    TargetCansel()
     
     for bank_item in bank_items.keys():
         count = 0
-        while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 10):
+        while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 5):
             Player.ChatSay(48, "bank")
-            Misc.Pause(500)
+            Misc.Pause(200)
             item = Items.FindByID(bank_item, -1, Player.Backpack.Serial)
             if item:
                 if item.ItemID == 0x1BF2:
@@ -119,19 +126,25 @@ def OrganizeToBank():
                 Misc.SendMessage("[" + str(item["amount"]) + "] " + item["name"], colorful())
     Misc.SendMessage(" ", 1150)
     Misc.Pause(1000)
+    
+    TargetCansel()
 
 
 def RecallToRunebook(rune):
 
-    Target.Cancel()
-    Misc.Pause(100)
+
+    TargetCansel()
+    
     Items.UseItem(roonbook)
-    Gumps.WaitForGump(89, 3000)
+    Gumps.WaitForGump(89, 15000)
+    Misc.Pause(100)
     Misc.SendMessage("RUNE: %s" % rune, colorful())
     Misc.SendMessage("==============", 1150)
     rune_button = rune + 50
     Gumps.SendAction(89, rune_button)
     Misc.Pause(3000)
+    
+    TargetCansel()
 
 
 def Mining():
@@ -146,20 +159,22 @@ def Mining():
         
         # MINING
         mining_count = 0
-        while Player.Weight <= Player.MaxWeight and (mining_count < 5):
+        while Player.Weight <= Player.MaxWeight and (mining_count < 10):
             for pickaxe in pickaxes:
-                Target.Cancel()
-                Misc.Pause(100)
+                TargetCansel()
                 Items.UseItem(pickaxe)
                 Target.WaitForTarget(10000, False)
                 x = Player.Position.X - 1
                 y = Player.Position.Y - 0
                 z = Player.Position.Z
                 Target.TargetExecute(x, y, z)
-                Misc.Pause(200)
+                
+            TargetCansel()
             Misc.Pause(1000)
             mining_count += 1
-        Misc.Pause(1750)
+        Misc.Pause(1000)
+        
+        TargetCansel()
         
         # MINI ORE INTO BAG
         while Items.FindByID(mini_ore, -1, Player.Backpack.Serial):
@@ -178,7 +193,7 @@ def Mining():
                     Items.UseItem(item)
                     Target.WaitForTarget(10000, False)
                     Target.TargetExecute(fire_beetle)
-                    Misc.Pause(750)
+                    Misc.Pause(100)
 
         # MELT
         for ore in ores:
@@ -190,7 +205,10 @@ def Mining():
                     Items.UseItem(item)
                     Target.WaitForTarget(10000, False)
                     Target.TargetExecute(fire_beetle)
-                    Misc.Pause(750)
+                    Misc.Pause(100)
+
+    Misc.Pause(1000)
+    TargetCansel()
 
 # ITEM_ID: Foods
 # ===============================
@@ -262,3 +280,4 @@ while True:
             OrganizeToBank()
             RecallToRunebook(rune)
             Mining()
+

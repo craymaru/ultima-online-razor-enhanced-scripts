@@ -4,17 +4,17 @@
 
 # SETTINGS: Lumberjacking
 # ===============================
-axe = 0x4006A1E2 # Your equippable Axe Static ID
+axe = 0x400690AA # Your equippable Axe Static ID
 position_offset_x = -1 # Tree pos from the your character pos
 position_offset_y = 0
-times = 8
+times = 6
 
 # SETTINGS: Runes
 # ===============================
-# runebook = 0x4002E477 # your Roonbook
-runic_atlas = 0x405FCFCC # your Runic-Atlas
+runebook = 0x4002E477 # your Roonbook
+runic_atlas = 0x405FADE0 # your Runic-Atlas
 bank_rune = 0 # Bank rune should be first of the Runic-Atlas
-runes = range(1, 44) # How many runes are in the Runic-Atlas
+runes = range(1, 33) # How many runes are in the Runic-Atlas
 
 # ITEM_ID
 # ===============================
@@ -147,3 +147,4 @@ while True:
         RecallToAtlas(rune)
         Lumberjacking()
         LogToBoard()
+        
