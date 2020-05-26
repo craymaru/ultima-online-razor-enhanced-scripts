@@ -1,20 +1,17 @@
 from System.Collections.Generic import List 
 
+loot_time_ms = 5000
+
+
 looted_corpses = []
 
-def GoToLocation(x, y):
+def goToLocation(x, y):
     Coords = PathFinding.Route()
     Coords.X = x
     Coords.Y = y
     Coords.MaxRetry = -1
     PathFinding.Go(Coords)
     Misc.Pause(50)
-
-def WhereMobile():
-    mobile = Mobiles.FindBySerial(0x0001B49E)
-    pos = mobile.Position
-    Misc.SendMessage(mobile.Position)
-    return pos
 
 def findCorpse():
     corpse = Items.Filter()
@@ -34,6 +31,6 @@ while True:
             Misc.SendMessage(corpse.Name)
             Misc.SendMessage(corpse.Serial)
             Misc.SendMessage(corpse.Position)
-            GoToLocation(corpse.Position.X, corpse.Position.Y)
+            goToLocation(corpse.Position.X, corpse.Position.Y)
             looted_corpses.append(corpse.Serial)
-            Misc.Pause(5000)
+            Misc.Pause(loot_time_ms)

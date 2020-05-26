@@ -39,6 +39,7 @@ ore_colors = {
     0x08ab: "Valorite"
 }
 bank_items = {
+    0x1779: "High Quality Granite",
     0x1BF2: "Ingot",
     0x3192: "Dark Sapphire",
     0x3193: "Turquoise",
@@ -47,10 +48,21 @@ bank_items = {
     0x3197: "Fire Ruby",
     0x3198: "Blue Diamond",
     0x0F28: "A Small Piece of Blackrock",
-    0x5732: "crystalline blackrock"
+    0x5732: "crystalline blackrock",
 }
 
 item_dic = {
+    0x1779: {
+        0x0000: {"name": "Iron Granite", "amount": 0},
+        0x0973: {"name": "Dull Copper Granite", "amount": 0},
+        0x0966: {"name": "Shadow Granite", "amount": 0},
+        0x096d: {"name": "Copper Granite", "amount": 0},
+        0x0972: {"name": "Bronze Granite", "amount": 0},
+        0x08a5: {"name": "Golden Granite", "amount": 0},
+        0x0979: {"name": "Agapite Granite", "amount": 0},
+        0x089f: {"name": "Verite Granite", "amount": 0},
+        0x08ab: {"name": "Valorite Granite", "amount": 0}
+    },
     0x1BF2: {
         0x0000: {"name": "Iron Ingot", "amount": 0},
         0x0973: {"name": "Dull Copper Ingot", "amount": 0},
@@ -151,6 +163,9 @@ def Mining():
 
     Misc.SendMessage("MINING", colorful())
     Misc.SendMessage("==============", 1150)
+
+    # DISMOUNT
+    Mobiles.UseMobile(Player.Serial)
     
     # TimeSet
     start_time = time.time()
@@ -182,7 +197,7 @@ def Mining():
             if item:
                 Items.Move(item, mini_ore_organize_bag, 0)
                 Misc.Pause(1000)
-
+                
         # MELT MINI ORE
         for ore_color in ore_colors.keys():
             item = Items.FindByID(mini_ore, ore_color, mini_ore_organize_bag)
@@ -207,6 +222,9 @@ def Mining():
                     Target.TargetExecute(fire_beetle)
                     Misc.Pause(100)
 
+        # MOUNT
+        Mobiles.UseMobile(Player.StaticMount)
+                    
     Misc.Pause(1000)
     TargetCansel()
 
@@ -237,6 +255,9 @@ def PetFood(pet_serial, trush_poach_serial):
 
     Misc.SendMessage("PETFOOD", colorful())
     Misc.SendMessage("==============", 1150)
+
+    # DISMOUNT
+    Mobiles.UseMobile(Player.Serial)
     
     while ate_meat == False or ate_fruit == False:
         Spells.CastMagery("Create Food")
@@ -265,6 +286,10 @@ def PetFood(pet_serial, trush_poach_serial):
                 Misc.Pause(50)
                 Items.Move(item, trush_poach_serial, 0)
                 Misc.Pause(500)
+    
+    # MOUNT
+    Mobiles.UseMobile(Player.StaticMount)
+    
     Misc.Pause(1000)
 
 # RUN

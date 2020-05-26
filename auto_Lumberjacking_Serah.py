@@ -4,7 +4,7 @@
 
 # SETTINGS: Lumberjacking
 # ===============================
-axe = 0x400690AA # Your equippable Axe Static ID
+axe = 0x40081CB8 # Your equippable Axe Static ID
 position_offset_x = -1 # Tree pos from the your character pos
 position_offset_y = 0
 times = 6
