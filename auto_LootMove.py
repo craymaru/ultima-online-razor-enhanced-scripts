@@ -6,11 +6,11 @@ loot_time_ms = 5000
 looted_corpses = []
 
 def goToLocation(x, y):
-    Coords = PathFinding.Route()
-    Coords.X = x
-    Coords.Y = y
-    Coords.MaxRetry = -1
-    PathFinding.Go(Coords)
+    route = PathFinding.Route()
+    route.X = x
+    route.Y = y
+    route.MaxRetry = -1
+    PathFinding.Go(route)
     Misc.Pause(50)
 
 def findCorpse():

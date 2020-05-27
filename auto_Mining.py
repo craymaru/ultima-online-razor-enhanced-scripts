@@ -1,5 +1,7 @@
-# Auto Mining by Cray
-# ===============================
+"""
+Auto Mining Version3
+Author: Cray
+"""
 
 # IMPORTS
 # ===============================
@@ -97,17 +99,11 @@ class ColorfulMassage:
         return self.cc
 colorful = ColorfulMassage()
 
-def TargetCansel():
-    Misc.Pause(50)
-    Target.Cancel()
-    Misc.Pause(50)
 
 def OrganizeToBank():
     
     RecallToRunebook(bank_rune)
 
-    TargetCansel()
-    
     for bank_item in bank_items.keys():
         count = 0
         while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 5):
@@ -139,14 +135,10 @@ def OrganizeToBank():
     Misc.SendMessage(" ", 1150)
     Misc.Pause(1000)
     
-    TargetCansel()
 
 
 def RecallToRunebook(rune):
 
-
-    TargetCansel()
-    
     Items.UseItem(roonbook)
     Gumps.WaitForGump(89, 15000)
     Misc.Pause(100)
@@ -156,8 +148,6 @@ def RecallToRunebook(rune):
     Gumps.SendAction(89, rune_button)
     Misc.Pause(3000)
     
-    TargetCansel()
-
 
 def Mining():
 
@@ -165,7 +155,7 @@ def Mining():
     Misc.SendMessage("==============", 1150)
 
     # DISMOUNT
-    Mobiles.UseMobile(Player.Serial)
+    # Mobiles.UseMobile(Player.Serial)
     
     # TimeSet
     start_time = time.time()
@@ -176,20 +166,19 @@ def Mining():
         mining_count = 0
         while Player.Weight <= Player.MaxWeight and (mining_count < 10):
             for pickaxe in pickaxes:
-                TargetCansel()
                 Items.UseItem(pickaxe)
-                Target.WaitForTarget(10000, False)
+                Misc.Pause(100)
+                # Target.WaitForTarget(10000, False)
                 x = Player.Position.X - 1
                 y = Player.Position.Y - 0
                 z = Player.Position.Z
                 Target.TargetExecute(x, y, z)
                 
-            TargetCansel()
             Misc.Pause(1000)
             mining_count += 1
+            
         Misc.Pause(1000)
         
-        TargetCansel()
         
         # MINI ORE INTO BAG
         while Items.FindByID(mini_ore, -1, Player.Backpack.Serial):
@@ -203,10 +192,10 @@ def Mining():
             item = Items.FindByID(mini_ore, ore_color, mini_ore_organize_bag)
             if item:
                 if 1 < item.Amount:
-                    Target.Cancel()
                     Misc.Pause(100)
                     Items.UseItem(item)
-                    Target.WaitForTarget(10000, False)
+                    # Target.WaitForTarget(1000, False)
+                    Misc.Pause(200)
                     Target.TargetExecute(fire_beetle)
                     Misc.Pause(100)
 
@@ -215,18 +204,14 @@ def Mining():
             while Items.FindByID(ore, -1, Player.Backpack.Serial):
                 item = Items.FindByID(ore, -1, Player.Backpack.Serial)
                 if item:
-                    Target.Cancel()
                     Misc.Pause(100)
                     Items.UseItem(item)
-                    Target.WaitForTarget(10000, False)
+                    # Target.WaitForTarget(1000, False)
+                    Misc.Pause(200)
                     Target.TargetExecute(fire_beetle)
                     Misc.Pause(100)
 
-        # MOUNT
-        Mobiles.UseMobile(Player.StaticMount)
-                    
     Misc.Pause(1000)
-    TargetCansel()
 
 # ITEM_ID: Foods
 # ===============================
@@ -255,9 +240,6 @@ def PetFood(pet_serial, trush_poach_serial):
 
     Misc.SendMessage("PETFOOD", colorful())
     Misc.SendMessage("==============", 1150)
-
-    # DISMOUNT
-    Mobiles.UseMobile(Player.Serial)
     
     while ate_meat == False or ate_fruit == False:
         Spells.CastMagery("Create Food")
@@ -267,13 +249,11 @@ def PetFood(pet_serial, trush_poach_serial):
             item = Items.FindByID(food_k, -1, Player.Backpack.Serial)
             if item is not None:
                 if food_v["type"] == "meat":
-                    Target.Cancel()
                     Misc.Pause(50)
                     Items.Move(item, pet_serial, 0)
                     ate_meat = True
                     Misc.Pause(500)
                 elif food_v["type"] == "fruit":
-                    Target.Cancel()
                     Misc.Pause(50)
                     Items.Move(item, pet_serial, 0)
                     ate_fruit = True
@@ -282,13 +262,9 @@ def PetFood(pet_serial, trush_poach_serial):
         for food in foods.keys():
             item = Items.FindByID(food, -1, Player.Backpack.Serial)
             if item is not None:
-                Target.Cancel()
                 Misc.Pause(50)
                 Items.Move(item, trush_poach_serial, 0)
                 Misc.Pause(500)
-    
-    # MOUNT
-    Mobiles.UseMobile(Player.StaticMount)
     
     Misc.Pause(1000)
 

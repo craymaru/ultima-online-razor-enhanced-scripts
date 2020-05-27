@@ -24,6 +24,10 @@ trushes = {
     "sandals": {"id": 0x170D, "color": 0x0000},
     "shoes": {"id": 0x170F, "color": 0x0000},
     "thigh boots": {"id": 0x1711, "color": 0x0000},
+    "prized fish": {"id": 0x0DD6, "color": 0x0033},
+    "highly peculiar fish": {"id": 0x0DD6, "color": 0x0042},
+    "wondrous fish": {"id": 0x0DD6, "color": 0x004c},
+    "truly rare fish": {"id": 0x0DD6, "color": 0x0056},
 }
 
 
@@ -75,7 +79,7 @@ def fish(pos):
     Items.UseItem(fishing_pole_serial)
     Target.WaitForTarget(1000, True)
     Target.TargetExecute(pos.X, pos.Y ,pos.Z)
-    Misc.Pause(8500)
+    Misc.Pause(8300)
     
     
 
@@ -85,6 +89,5 @@ while Player.Weight < Player.MaxWeight:
     
     for pos in positions:
         for i in range(fishing_times_number):
-            if enable_cleanup:
-                cleanup(trushes) 
             fish(pos)
+            if enable_cleanup: cleanup(trushes) 

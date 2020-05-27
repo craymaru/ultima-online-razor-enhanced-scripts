@@ -1,13 +1,22 @@
-Misc.SendMessage("PET?", 53)
-target = Target.PromptTarget()
+Misc.SendMessage("MOBILE?", 53)
+target_serial = Target.PromptTarget()
 
-def HealMobile():
-    mobile = Mobiles.FindBySerial(target)
-    if mobile.Hits < mobile.HitsMax * 0.9:
+
+def cure(target_serial):
+    Spells.CastMagery("Cure")
+    Target.WaitForTarget(5000, False)
+    Target.TargetExecute(target_serial)
+
+
+def heal(target_serial):
+    mobile = Mobiles.FindBySerial(target_serial)
+    while mobile.Poisoned:
+        cure(target_serial)
+    if mobile.Hits < mobile.HitsMax * 0.6 and not mobile.Poisoned:
         Spells.CastMagery("Greater Heal")
         Target.WaitForTarget(5000, False)
-        Target.TargetExecute(target)
-        
+        Target.TargetExecute(target_serial)
+
 while True:
-    HealMobile()
+    heal(target_serial)
     Misc.Pause(1000)

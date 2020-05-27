@@ -80,8 +80,8 @@ def mining():
     while Player.Weight <= Player.MaxWeight - 100 and (mining_count < 10):
         for pickaxe_serial in pickaxe_serials:
             Items.UseItem(pickaxe_serial)
-            Misc.Pause(100)
-            # Target.WaitForTarget(1000, False)
+            # Misc.Pause(100)
+            Target.WaitForTarget(1000, True)
             x = Player.Position.X - 1
             y = Player.Position.Y - 0
             z = Player.Position.Z
