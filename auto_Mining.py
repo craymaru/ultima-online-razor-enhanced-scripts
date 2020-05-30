@@ -43,6 +43,15 @@ ore_colors = {
 bank_items = {
     0x1779: "High Quality Granite",
     0x1BF2: "Ingot",
+    0x0F0F: "Star Sapphire",
+    0x0F10: "Emerald",
+    0x0F11: "Sapphire",
+    0x0F13: "Ruby",
+    0x0F15: "Citrine",
+    0x0F16: "Amethyst",
+    0x0F18: "Tourmaline",
+    0x0F25: "Amber",
+    0x0F26: "Diamond",
     0x3192: "Dark Sapphire",
     0x3193: "Turquoise",
     0x3194: "Perfect Emerald",
@@ -76,6 +85,15 @@ item_dic = {
         0x089f: {"name": "Verite Ingot", "amount": 0},
         0x08ab: {"name": "Valorite Ingot", "amount": 0}
     },
+    0x0F0F: {0x0000: {"name": "Star Sapphire", "amount": 0}},
+    0x0F10: {0x0000: {"name": "Emerald", "amount": 0}},
+    0x0F11: {0x0000: {"name": "Sapphire", "amount": 0}},
+    0x0F13: {0x0000: {"name": "Ruby", "amount": 0}},
+    0x0F15: {0x0000: {"name": "Citrine", "amount": 0}},
+    0x0F16: {0x0000: {"name": "Amethyst", "amount": 0}},
+    0x0F18: {0x0000: {"name": "Tourmaline", "amount": 0}},
+    0x0F25: {0x0000: {"name": "Amber", "amount": 0}},
+    0x0F26: {0x0000: {"name": "Diamond", "amount": 0}},
     0x3192: {0x0000: {"name": "Dark Sapphire", "amount": 0}},
     0x3193: {0x0000: {"name": "Turquoise", "amount": 0}},
     0x3194: {0x0000: {"name": "Perfect Emerald", "amount": 0}},
@@ -92,11 +110,13 @@ item_dic = {
 class ColorfulMassage:
     def __init__(self):
         self.cc = 0
+        
     def __call__(self):
         if self.cc < 1910 or 1920 < self.cc:
             self.cc = 1910
         self.cc += 1
         return self.cc
+        
 colorful = ColorfulMassage()
 
 
@@ -121,9 +141,6 @@ def OrganizeToBank():
                 Misc.Pause(500)
             count += 1
     
-    # SORT
-    # item_dic_sorted = sorted
-    # scores_sorted = sorted(item_dic[0x1BF2], key=lambda x:x['amount'])
 
     # RESULT
     Misc.SendMessage(">>> RESULT", 1150)
@@ -148,8 +165,8 @@ def RecallToRunebook(rune):
     Gumps.SendAction(89, rune_button)
     Misc.Pause(3000)
     
-
-def Mining():
+    
+def mining():
 
     Misc.SendMessage("MINING", colorful())
     Misc.SendMessage("==============", 1150)
@@ -280,5 +297,5 @@ while True:
         for rune in runes:
             OrganizeToBank()
             RecallToRunebook(rune)
-            Mining()
+            mining()
 

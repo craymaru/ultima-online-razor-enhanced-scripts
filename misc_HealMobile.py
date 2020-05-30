@@ -12,7 +12,7 @@ def heal(target_serial):
     mobile = Mobiles.FindBySerial(target_serial)
     while mobile.Poisoned:
         cure(target_serial)
-    if mobile.Hits < mobile.HitsMax * 0.6 and not mobile.Poisoned:
+    if mobile.Hits < mobile.HitsMax * 0.85 and not mobile.Poisoned:
         Spells.CastMagery("Greater Heal")
         Target.WaitForTarget(5000, False)
         Target.TargetExecute(target_serial)
