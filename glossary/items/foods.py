@@ -1,6 +1,6 @@
 from Scripts.utilities.items import myItem
 
-food = {
+foods = {
     'dragon fruit': myItem(
         name = 'dragon fruit',
         itemID = 0x0C65,
