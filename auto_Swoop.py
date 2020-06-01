@@ -2,17 +2,17 @@ from System.Collections.Generic import List
 from System import Byte
 
 
-fil = Mobiles.Filter()
-fil.Enabled = True
-fil.RangeMax = 20
-fil.Notorieties = List[Byte](bytes([3,4]))
+filter = Mobiles.Filter()
+filter.Enabled = True
+filter.RangeMax = 20
+filter.Notorieties = List[Byte](bytes([3,4]))
 
 while True:
     last_enemy = None
     if Player.WarMode:
         Player.SetWarMode(False)
         
-    enemies = Mobiles.ApplyFilter(fil)
+    enemies = Mobiles.ApplyFilter(filter)
     Mobiles.Select(enemies,'Nearest')
     for enemy in enemies:
         if not Player.HasSpecial:

@@ -18,7 +18,7 @@ def TrainDiscordance():
     enemies = Mobiles.ApplyFilter(fil)
     Mobiles.Select(enemies,'Nearest')
     for enemy in enemies:
-        if enemy.Name == "ProvOne" or enemy.Name == "ProvTwo":
+        if enemy:
             Player.UseSkill("Discordance")
             Target.WaitForTarget(3000, False)
             Target.TargetExecute(enemy)
