@@ -60,7 +60,7 @@ while True:
     
     mobile = findNearestMobile(filter)
     if mobile:
-        if mobile.Hits <= mobile.HitsMax * 0.4:
+        if mobile.Hits <= mobile.HitsMax * 0.3:
             castWordOfDeath(mobile)
         else:
             castCorpseSkin(mobile)
