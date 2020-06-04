@@ -109,7 +109,12 @@ def hiding():
         Player.UseSkill("Hiding")
 
 
-beforeGold = None
+def countGold():
+    
+    global beforeGold
+    
+    if not beforeGold:
+        beforeGold = None
 
 while True:
     
