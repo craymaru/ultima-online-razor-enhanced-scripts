@@ -40,7 +40,7 @@ def getSendingBag():
         Player.HeadMessage(54, "You have not sending bag!")
 
 
-def getGold(amount=48000):
+def getGold(amount=45000):
     
     filter = Items.Filter()
     filter.Enabled = True
@@ -76,7 +76,7 @@ def goToLocation(x, y):
     route = PathFinding.Route()
     route.X = x
     route.Y = y
-    route.MaxRetry = -1
+    route.MaxRetry = 5
     PathFinding.Go(route)
     Misc.Pause(50)
 
@@ -90,7 +90,7 @@ def findGold():
     filter.OnGround = True
     filter.Movable = True
     golds = Items.ApplyFilter(filter)
-    gold = Items.Select(golds, "Nearest")
+    gold = Items.Select(golds, "Random")
     return gold
 
 
@@ -102,21 +102,27 @@ def goToGold():
         goToLocation(gold.Position.X, gold.Position.Y)
 
     
-# HIDING
 
 def hiding():
+    # HIDING
     if not Player.BuffsExist("Hiding") and Player.GetSkillValue("Hiding") <= 100:
         Player.UseSkill("Hiding")
 
 
-hiding()
+beforeGold = None
 
 while True:
     
+    hiding()
+    sendGold()
+    
     if not Timer.Check("ScavengeTime"):
         goToGold()
-        Timer.Create("ScavengeTime", 10000)
+        Timer.Create("ScavengeTime", 6000)
+
+   
+    if not beforeGold == Player.Gold:
+        Player.HeadMessage(54, Player.Gold)
+        beforeGold = Player.Gold
+
         
-    sendGold()
-
-

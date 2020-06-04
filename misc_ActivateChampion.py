@@ -1,11 +1,24 @@
+from System.Collections.Generic import List 
 
-def activateChampion():
-    
-    skull = Items.FindByID(0x1F18, 0x0000, Player.Backpack.Serial)
+def filterSkull():
+    # FILTER SKULL
+    filter = Items.Filter()
+    filter.Graphics = List[int]([0x1F18])
+    filter.OnGround = True
+    filter.Movable = False
+    filter.RangeMax = 5
+    return filter
 
-    Player.InvokeVirtue("Valor")
-    Misc.Pause(200)
-    Target.TargetExecute(skull)
+
+def activateChampion(filter):
+    # ACTIVATE IDOL OF CHAMPION
+    skulls = Items.ApplyFilter(filter)
+    skull = Items.Select(skulls, "Nearest")
+    # Use Valor to Skull
+    if skull:
+        Player.InvokeVirtue("Valor")
+        Misc.Pause(200)
+        Target.TargetExecute(skull)
     
-    
-activateChampion()
+skullFilter = filterSkull()
+activateChampion(skullFilter)
