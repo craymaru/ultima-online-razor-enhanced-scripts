@@ -4,6 +4,15 @@ from System import Byte
 
 cray_serial = 0x00020008
 
+instruments = {
+    0x0EB1: "standing harp",
+    0x0EB2: "lap harp",
+    0x0EB3: "lute",
+    0x0EB2: "lap harp",
+    0x0E9C: "drum",
+    0x0E9D: "tambourine",
+    0x2805: "bamboo flute"
+}
 
 filter = Mobiles.Filter()
 filter.Enabled = True
@@ -45,13 +54,25 @@ def autoInvisibility(cray_serial):
         Misc.Pause(200)
 
 
-def mastery():
+def getInstrument():
+    
+    for instrumentID in instruments:
+        item = Items.FindByID(instrumentID, -1, Player.Backpack.Serial)
+        if item:
+            return item
+
+
+def birdMastery():
     
     if not Player.BuffsExist("Inspire"):
+        Items.UseItem(getInstrument())
+        Misc.Pause(250)
         Spells.CastMastery("Inspire")
         Misc.Pause(2000)
         
     if not Player.BuffsExist("Invigorate"):
+        Items.UseItem(getInstrument())
+        Misc.Pause(250)
         Spells.CastMastery("Invigorate")
         Misc.Pause(2000)
 
@@ -61,8 +82,8 @@ def discordance(filter):
     enemies = Mobiles.ApplyFilter(filter)
     enemy = Mobiles.Select(enemies, "Nearest")
     if enemy:
-        Items.UseItemByID(0x0E9D) # Tambourine
-        Misc.Pause(500)
+        Items.UseItem(getInstrument())
+        Misc.Pause(250)
         Player.UseSkill("Discordance")
         Misc.Pause(200)
         Target.TargetExecute(enemy)
@@ -70,7 +91,11 @@ def discordance(filter):
 
 
 def castArchCure(mobile_serial):
+    
     mobile = Mobiles.FindBySerial(mobile_serial)
+    if not mobile:
+        return
+        
     if mobile.Poisoned:
         Spells.CastMagery("Arch Cure")
         Misc.Pause(1000)
@@ -79,7 +104,7 @@ def castArchCure(mobile_serial):
 
 while True:
     autoInvisibility(cray_serial)
-    mastery()
+    birdMastery()
     discordance(filter)
     castArchCure(cray_serial)
     castArchCure(Player.Serial)
