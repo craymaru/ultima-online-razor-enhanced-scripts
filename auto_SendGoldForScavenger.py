@@ -13,8 +13,12 @@ def getSendingBag():
         
         powder = Items.FindByID(0x26B8, 0x0000, Player.Backpack.Serial)
         if powder:
+            if Scavenger.Status():
+                Scavenger.Stop()
             Items.UseItem(powder)
             Misc.Pause(200)
+            if not Scavenger.Status():
+                Scavenger.Start()
             Target.TargetExecute(bag)
             Player.HeadMessage(54, "Charged powder!")
             return bag
@@ -61,12 +65,16 @@ def sendGold(amount):
     
     if gold:
         if sendingBag:
+            if Scavenger.Status():
+                Scavenger.Stop()
             Misc.Pause(550)
             Items.UseItem(sendingBag)
             Misc.Pause(550)
             Target.TargetExecute(gold)
             Player.HeadMessage(90, "Send!")
             Misc.Pause(650)
+            if not Scavenger.Status():
+                Scavenger.Start()
     else:
         Misc.Pause(1000)
 

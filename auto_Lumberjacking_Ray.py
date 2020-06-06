@@ -43,9 +43,10 @@ log_colors = {
 
 def Lumberjacking():
     
-    Journal.Clear()
+    
     
     #LUMBERJACKING
+    Journal.Clear()
     count = 0
     while Player.Weight <= Player.MaxWeight and (count < times):
         

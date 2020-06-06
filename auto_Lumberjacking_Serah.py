@@ -42,8 +42,12 @@ log_colors = {
 
 def Lumberjacking():
     #LUMBERJACKING
+    Journal.Clear()
     count = 0
     while Player.Weight <= Player.MaxWeight and (count < times):
+        
+        if Journal.Search('not enough'):
+            break
         
         # EQUIP AXE
         if not Player.CheckLayer("LeftHand"):

@@ -165,69 +165,64 @@ def RecallToRunebook(rune):
     Gumps.SendAction(89, rune_button)
     Misc.Pause(3000)
     
+
+def melting():
+    # MINI ORE INTO BAG
+    while Items.FindByID(mini_ore, -1, Player.Backpack.Serial):
+        item = Items.FindByID(mini_ore, -1, Player.Backpack.Serial)
+        if item:
+            Items.Move(item, mini_ore_organize_bag, 0)
+            Misc.Pause(1000)
+            
+    # MELT MINI ORE
+    for ore_color in ore_colors.keys():
+        item = Items.FindByID(mini_ore, ore_color, mini_ore_organize_bag)
+        if item:
+            if 1 < item.Amount:
+                Misc.Pause(100)
+                Items.UseItem(item)
+                # Target.WaitForTarget(1000, False)
+                Misc.Pause(200)
+                Target.TargetExecute(fire_beetle)
+                Misc.Pause(100)
+
+    # MELT
+    for ore in ores:
+        while Items.FindByID(ore, -1, Player.Backpack.Serial):
+            item = Items.FindByID(ore, -1, Player.Backpack.Serial)
+            if item:
+                Misc.Pause(100)
+                Items.UseItem(item)
+                # Target.WaitForTarget(1000, False)
+                Misc.Pause(200)
+                Target.TargetExecute(fire_beetle)
+                Misc.Pause(100)
     
 def mining():
 
     Misc.SendMessage("MINING", colorful())
     Misc.SendMessage("==============", 1150)
-
-    # DISMOUNT
-    # Mobiles.UseMobile(Player.Serial)
     
-    # TimeSet
-    start_time = time.time()
-    
-    while time.time() - start_time < 15:
+    # MINING
+    Journal.Clear()
+    while Player.Weight < Player.MaxWeight - 50:
         
-        # MINING
-        mining_count = 0
-        while Player.Weight <= Player.MaxWeight and (mining_count < 10):
-            for pickaxe in pickaxes:
-                Items.UseItem(pickaxe)
-                Misc.Pause(100)
-                # Target.WaitForTarget(10000, False)
-                x = Player.Position.X - 1
-                y = Player.Position.Y - 0
-                z = Player.Position.Z
-                Target.TargetExecute(x, y, z)
-                
-            Misc.Pause(1000)
-            mining_count += 1
+        if Journal.Search("There is no metal here to mine."):
+            break
+        
+        for pickaxe in pickaxes:
+            Items.UseItem(pickaxe)
+            Misc.Pause(100)
+            x = Player.Position.X - 1
+            y = Player.Position.Y - 0
+            z = Player.Position.Z
+            Target.TargetExecute(x, y, z)
             
         Misc.Pause(1000)
         
-        
-        # MINI ORE INTO BAG
-        while Items.FindByID(mini_ore, -1, Player.Backpack.Serial):
-            item = Items.FindByID(mini_ore, -1, Player.Backpack.Serial)
-            if item:
-                Items.Move(item, mini_ore_organize_bag, 0)
-                Misc.Pause(1000)
-                
-        # MELT MINI ORE
-        for ore_color in ore_colors.keys():
-            item = Items.FindByID(mini_ore, ore_color, mini_ore_organize_bag)
-            if item:
-                if 1 < item.Amount:
-                    Misc.Pause(100)
-                    Items.UseItem(item)
-                    # Target.WaitForTarget(1000, False)
-                    Misc.Pause(200)
-                    Target.TargetExecute(fire_beetle)
-                    Misc.Pause(100)
-
-        # MELT
-        for ore in ores:
-            while Items.FindByID(ore, -1, Player.Backpack.Serial):
-                item = Items.FindByID(ore, -1, Player.Backpack.Serial)
-                if item:
-                    Misc.Pause(100)
-                    Items.UseItem(item)
-                    # Target.WaitForTarget(1000, False)
-                    Misc.Pause(200)
-                    Target.TargetExecute(fire_beetle)
-                    Misc.Pause(100)
-
+    Misc.Pause(1000)
+    
+    melting()
     Misc.Pause(1000)
 
 # ITEM_ID: Foods
@@ -292,7 +287,7 @@ Misc.SendMessage("START", colorful())
 Misc.SendMessage("==============", 1150)
 
 while True:
-    PetFood(pet_serial, trush_poach_serial)
+    # PetFood(pet_serial, trush_poach_serial)
     for i in range(5):
         for rune in runes:
             OrganizeToBank()
