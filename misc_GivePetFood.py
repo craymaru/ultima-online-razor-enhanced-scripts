@@ -5,9 +5,7 @@ configuration/config.py
 food_habit: (0: Carnivorous, 1: Herbivorous, 2: Omnivorous)
 """
 
-from Scripts.configuration import config
-
-trush_poach_serial = config.General[Player.Serial]["trush_poach_serial"]
+from Scripts.config import config
 
 
 # ITEM_ID: Foods
@@ -31,53 +29,54 @@ class PetFood:
     def __init__(self, pet_serial, food_habit, trush_poach_serial):
         
         self.pet_serial = pet_serial
-        self.food_habit = food_habit
+        self.foodHabit = food_habit
         self.trush_poach_serial = trush_poach_serial
+        self.ate = []
     
-    def __call__(self):
+    def __call__(self, Misc, Player, Mobiles, Items, Spells, Timer):
         
-        ate_meat = False
-        ate_fruit = False
+        def castCreateFood():
+            if not Timer.Check("Casting"):
+                Spells.CastMagery("Create Food")
+                Timer.Create("Casting", 1000)
+            
+        def giveFood(food):
+            if not Timer.Check("MoveItem"):
+                Player.HeadMessage(80, "Here you are!")
+                Mobiles.Message(self.pet_serial, 90, "yum-yum..")
+                Items.Move(food, self.pet_serial, 1)
+                Timer.Create("MoveItem", 650)
         
-        if self.food_habit == 0:
-            ate_fruit = True
-            
-        if self.food_habit == 1:
-            ate_meat = True
-            
-
-        while ate_meat == False or ate_fruit == False:
-            Spells.CastMagery("Create Food")
-            Misc.Pause(1000)
-
-            for food_k, food_v in foods.items():
-                item = Items.FindByID(food_k, -1, Player.Backpack.Serial)
+        def feed():
+            for foodID, food in foods.items():
+                item = Items.FindByID(foodID, 0x0000, Player.Backpack.Serial)
                 if item:
-                    if food_v["type"] == "meat" or food_v["type"] == "fruit":
-                        Target.Cancel()
-                        Misc.Pause(50)
-                        Items.Move(item, self.pet_serial, 0)
-                        if food_v["type"] == "meat":
-                            ate_meat = True
-                            Misc.SendMessage()
-                        if food_v["type"] == "fruit":
-                            ate_fruit = True
-                        Misc.Pause(500)
-                    
+                    if food["type"] == self.foodHabit:
+                        giveFood(item)
+                        self.ate.append(food["type"])
+        
+        def cleanFoods():
             for food in foods.keys():
-                item = Items.FindByID(food, -1, Player.Backpack.Serial)
+                item = Items.FindByID(food, 0x0000, Player.Backpack.Serial)
                 if item:
-                    Target.Cancel()
-                    Misc.Pause(50)
+                    while Timer.Check("MoveItem"):
+                        Misc.Pause(100)
                     Items.Move(item, self.trush_poach_serial, 0)
-                    Misc.Pause(500)
-                    
-        Misc.Pause(1000)
+                    Timer.Create("MoveItem", 650)
 
+ 
+        while not self.ate:
+            castCreateFood()
+            feed()           
+            Misc.Pause(50)
+        else:
+            cleanFoods()
+        
 
         
 if __name__ == "<module>":
-    Misc.SendMessage(__name__)
-    pet_serial = config.SomeExecute[Player.Serial]["pet_serial"]
-    petfood = PetFood(pet_serial, "test", trush_poach_serial)
-    petfood()
+    trush_poach_serial = config.General[Misc.ShardName()][Player.Serial]["trush_poach_serial"]
+    pet_serial = config.PetFood[Misc.ShardName()][Player.Serial]["pet_serial"]
+    hood_habit = config.PetFood[Misc.ShardName()][Player.Serial]["food_habit"]
+    petfood = PetFood(pet_serial, hood_habit, trush_poach_serial)
+    petfood(Misc, Player, Mobiles, Items, Spells, Timer)
