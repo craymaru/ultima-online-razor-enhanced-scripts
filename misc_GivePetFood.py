@@ -26,11 +26,11 @@ foods = {
 
 class PetFood:
     
-    def __init__(self, pet_serial, food_habit, trush_poach_serial):
+    def __init__(self, pet_serial, food_habit, trush_pouch_serial):
         
         self.pet_serial = pet_serial
         self.foodHabit = food_habit
-        self.trush_poach_serial = trush_poach_serial
+        self.trush_pouch_serial = trush_pouch_serial
         self.ate = []
     
     def __call__(self, Misc, Player, Mobiles, Items, Spells, Timer):
@@ -61,10 +61,10 @@ class PetFood:
                 if item:
                     while Timer.Check("MoveItem"):
                         Misc.Pause(100)
-                    Items.Move(item, self.trush_poach_serial, 0)
+                    Items.Move(item, self.trush_pouch_serial, 0)
                     Timer.Create("MoveItem", 650)
 
- 
+        self.ate = []
         while not self.ate:
             castCreateFood()
             feed()           
@@ -75,8 +75,9 @@ class PetFood:
 
         
 if __name__ == "<module>":
-    trush_poach_serial = config.General[Misc.ShardName()][Player.Serial]["trush_poach_serial"]
+    trush_pouch_serial = config.General[Misc.ShardName()][Player.Serial]["trush_pouch_serial"]
     pet_serial = config.PetFood[Misc.ShardName()][Player.Serial]["pet_serial"]
-    hood_habit = config.PetFood[Misc.ShardName()][Player.Serial]["food_habit"]
-    petfood = PetFood(pet_serial, hood_habit, trush_poach_serial)
-    petfood(Misc, Player, Mobiles, Items, Spells, Timer)
+    pet_food_habit = config.PetFood[Misc.ShardName()][Player.Serial]["pet_food_habit"]
+    petfood = PetFood(pet_serial, pet_food_habit, trush_pouch_serial)
+    while True:
+        petfood(Misc, Player, Mobiles, Items, Spells, Timer)

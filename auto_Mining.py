@@ -1,25 +1,22 @@
 """
-Auto Mining Version3
+Auto Mining Version4
 Author: Cray
 """
 
-# IMPORTS
-# ===============================
-import time
+from System.Collections.Generic import List
+
+from Scripts import misc_GivePetFood as pt
+from Scripts.config import config
+
 
 # SETTINGS: Mining
 # ===============================
-pickaxes = [0x4007CAC9, 0x400AF7DE, 0x4007CAC8, 0x4007CAC7]
 mini_ore_organize_bag = 0x4002B142
-fire_beetle = 0x0001207D
 roonbook = 0x40030BAA
+runic_atlas = 0x400E6EB7
 bank_rune = 0
-runes = range(1, 16)
+runes = range(1, 3)
 
-# SETTINGS: PetFood
-# ===============================
-pet_serial = fire_beetle
-trush_poach_serial = 0x4002FD51
 
 # ITEM_ID
 # ===============================
@@ -104,6 +101,10 @@ item_dic = {
     0x5732: {0x0000: {"name": "Crystalline Blackrock", "amount": 0}}
 }
 
+
+
+
+
 # DEFINES
 # ===============================
 
@@ -122,11 +123,14 @@ colorful = ColorfulMassage()
 
 def OrganizeToBank():
     
-    RecallToRunebook(bank_rune)
+    if Player.Weight < Player.MaxWeight - 200:
+       return 
+    
+    RecallWithAtlas(bank_rune)
 
     for bank_item in bank_items.keys():
         count = 0
-        while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 5):
+        while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 10):
             Player.ChatSay(48, "bank")
             Misc.Pause(200)
             item = Items.FindByID(bank_item, -1, Player.Backpack.Serial)
@@ -164,55 +168,90 @@ def RecallToRunebook(rune):
     rune_button = rune + 50
     Gumps.SendAction(89, rune_button)
     Misc.Pause(3000)
-    
 
-def melting():
+
+def RecallWithAtlas(rune):
+    # USE ATLAS
+    Target.Cancel()
+    Misc.Pause(50)
+    Items.UseItem(runic_atlas)
+    
+    # PAGENATE
+    page = rune / 16
+    for i in range(page):
+        Gumps.WaitForGump(498, 5000)
+        Gumps.SendAction(498, 1150)
+    
+    # SELECT RUNE
+    Misc.SendMessage("Rune: {page}-{rune}".format(page=page, rune=rune))
+    rune_button = rune + 100
+    Gumps.WaitForGump(498, 5000)
+    Gumps.SendAction(498, rune_button)
+    
+    # RECALL
+    Gumps.WaitForGump(498, 5000)
+    Gumps.SendAction(498, 4)
+    
+    Misc.Pause(2000)
+
+def melting(pet_serial):
     # MINI ORE INTO BAG
     while Items.FindByID(mini_ore, -1, Player.Backpack.Serial):
         item = Items.FindByID(mini_ore, -1, Player.Backpack.Serial)
         if item:
             Items.Move(item, mini_ore_organize_bag, 0)
             Misc.Pause(1000)
-            
+    
+    def melt(item, pet_serial):
+        Items.UseItem(item)
+        Misc.Pause(200)
+        Target.TargetExecute(pet_serial)
+        Misc.Pause(100)
+
+        
     # MELT MINI ORE
     for ore_color in ore_colors.keys():
         item = Items.FindByID(mini_ore, ore_color, mini_ore_organize_bag)
         if item:
             if 1 < item.Amount:
-                Misc.Pause(100)
-                Items.UseItem(item)
-                # Target.WaitForTarget(1000, False)
-                Misc.Pause(200)
-                Target.TargetExecute(fire_beetle)
-                Misc.Pause(100)
-
-    # MELT
+                melt(item, pet_serial)
+    # MELT ORE 
     for ore in ores:
         while Items.FindByID(ore, -1, Player.Backpack.Serial):
             item = Items.FindByID(ore, -1, Player.Backpack.Serial)
             if item:
-                Misc.Pause(100)
-                Items.UseItem(item)
-                # Target.WaitForTarget(1000, False)
-                Misc.Pause(200)
-                Target.TargetExecute(fire_beetle)
-                Misc.Pause(100)
-    
+                melt(item, pet_serial)
+
+
+def getPickaxes():
+    pickaxe_filter = Items.Filter()
+    pickaxe_filter.Enabled
+    pickaxe_filter.Graphics = List[int]([0x0E86])
+    pickaxe_filter.Movable = True
+    pickaxe_filter.OnGround = False
+    pickaxes = Items.ApplyFilter(pickaxe_filter)
+    return pickaxes
+
+
+                
 def mining():
 
     Misc.SendMessage("MINING", colorful())
     Misc.SendMessage("==============", 1150)
+    
+    pickaxes = getPickaxes()
     
     # MINING
     Journal.Clear()
     while Player.Weight < Player.MaxWeight - 50:
         
         if Journal.Search("There is no metal here to mine."):
+            Misc.Pause(1000)
             break
         
         for pickaxe in pickaxes:
             Items.UseItem(pickaxe)
-            Misc.Pause(100)
+            Misc.Pause(50)
             x = Player.Position.X - 1
             y = Player.Position.Y - 0
             z = Player.Position.Z
@@ -220,10 +259,7 @@ def mining():
             
         Misc.Pause(1000)
         
-    Misc.Pause(1000)
     
-    melting()
-    Misc.Pause(1000)
 
 # ITEM_ID: Foods
 # ===============================
@@ -240,45 +276,6 @@ foods = {
     0x09F2: {"name": "ribs", "type": "meat"}
 }
 
-# DEFINES: PetFood
-# ===============================
-def PetFood(pet_serial, trush_poach_serial):
-    
-    global ate_meat
-    global ate_fruit
-
-    ate_meat = False
-    ate_fruit = False
-
-    Misc.SendMessage("PETFOOD", colorful())
-    Misc.SendMessage("==============", 1150)
-    
-    while ate_meat == False or ate_fruit == False:
-        Spells.CastMagery("Create Food")
-        Misc.Pause(1000)
-
-        for food_k, food_v in foods.items():
-            item = Items.FindByID(food_k, -1, Player.Backpack.Serial)
-            if item is not None:
-                if food_v["type"] == "meat":
-                    Misc.Pause(50)
-                    Items.Move(item, pet_serial, 0)
-                    ate_meat = True
-                    Misc.Pause(500)
-                elif food_v["type"] == "fruit":
-                    Misc.Pause(50)
-                    Items.Move(item, pet_serial, 0)
-                    ate_fruit = True
-                    Misc.Pause(500)
-                
-        for food in foods.keys():
-            item = Items.FindByID(food, -1, Player.Backpack.Serial)
-            if item is not None:
-                Misc.Pause(50)
-                Items.Move(item, trush_poach_serial, 0)
-                Misc.Pause(500)
-    
-    Misc.Pause(1000)
 
 # RUN
 # ===============================
@@ -286,11 +283,23 @@ def PetFood(pet_serial, trush_poach_serial):
 Misc.SendMessage("START", colorful())
 Misc.SendMessage("==============", 1150)
 
-while True:
-    # PetFood(pet_serial, trush_poach_serial)
-    for i in range(5):
-        for rune in runes:
-            OrganizeToBank()
-            RecallToRunebook(rune)
-            mining()
 
+trush_pouch_serial = config.General[Misc.ShardName()][Player.Serial]["trush_pouch_serial"]
+pet_serial = config.Mining[Misc.ShardName()][Player.Serial]["pet_serial"]
+pet_food_habit = config.Mining[Misc.ShardName()][Player.Serial]["pet_food_habit"]
+petfood = pt.PetFood(pet_serial, pet_food_habit, trush_pouch_serial)
+
+
+while True:
+    
+    for rune in runes:
+        
+        if not Timer.Check("PetFood"):
+            petfood(Misc, Player, Mobiles, Items, Spells, Timer)
+            Misc.Pause(1000)
+            Timer.Create("PetFood", 5 * 60 * 1000)
+        
+        OrganizeToBank()
+        RecallWithAtlas(rune)
+        mining()
+        melting(pet_serial)
