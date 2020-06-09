@@ -4,6 +4,7 @@ ingot_id = 0x1BF2
 tinker_tool_gump = 949095101
 
 
+
 def useItem(tinker_tool_id):
     item = Items.FindByID(tinker_tool_id, 0x0000, Player.Backpack.Serial)
     if item:
@@ -40,6 +41,7 @@ def clean():
             if not Timer.Check("MoveItem"):
                 Items.Move(item, getCleanupPouch(), 1)
                 Timer.Create("MoveItem", 550)
+        Misc.Pause(100)
                 
 def makeBracelet():
     
@@ -61,7 +63,7 @@ def makeBracelet():
 
 def getBankItem(item, less_amount, get_amount):
     if Items.BackpackCount(item, -1) < less_amount:
-        if Player.Bank.Serial:
+        if not Player.Bank:
             Player.ChatSay(80, "bank")
         Misc.Pause(100)
         item = Items.FindByID(item, -1, Player.Bank.Serial)
