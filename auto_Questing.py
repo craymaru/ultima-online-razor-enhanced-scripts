@@ -18,7 +18,7 @@ import re
 # SETTINGS
 # ========================
 quest_mobile_serial = 0x00000717 # QUEST NPC
-pack_pet_serial = 0x0000A8D5 # PACK PET SERIAL
+pack_pet_serial = 0x0000A990 # PACK PET SERIAL
 
 pet_serials ={
     0x0000A8D5: {"name": "Nigoki", "food": "meat"},
@@ -38,6 +38,7 @@ target_properties_regex = {
     "Recipe Scroll",
     "Slayer",
     "^(?=.*Bonus)(?=.*(2[5-9]|[3-9][0-9])).*$", # Bonus and 25-99
+    "Speed"
 }
 
 # ITEM_ID

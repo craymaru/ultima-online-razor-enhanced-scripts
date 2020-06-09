@@ -5,7 +5,7 @@ Author: Cray
 
 from System.Collections.Generic import List
 
-from Scripts import misc_GivePetFood as pt
+from Scripts import misc_PetFood as pt
 from Scripts.config import config
 
 
@@ -15,7 +15,7 @@ mini_ore_organize_bag = 0x4002B142
 roonbook = 0x40030BAA
 runic_atlas = 0x400E6EB7
 bank_rune = 0
-runes = range(1, 3)
+runes = range(1, 46)
 
 
 # ITEM_ID

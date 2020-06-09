@@ -1,5 +1,5 @@
 """
-GivePetFood
+PetFood
 
 configuration/config.py
 food_habit: (0: Carnivorous, 1: Herbivorous, 2: Omnivorous)
