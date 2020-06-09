@@ -10,24 +10,41 @@ def useItem(tinker_tool_id):
     if item:
         Items.UseItem(item)
 
+        
+def useToolFirst():
+    Gumps.WaitForGump(tinker_tool_gump, 2000)
+    if Gumps.LastGumpTextExist("You have worn out your tool!") \
+    or not Gumps.CurrentGump() == tinker_tool_gump:
+        useItem(tinker_tool_id)
+        
+        
+def selectGumpMenu(requiredText, button):
+    Gumps.WaitForGump(tinker_tool_gump, 10000)
+    if not Gumps.LastGumpTextExist(requiredText) \
+    and Gumps.CurrentGump() == tinker_tool_gump:
+        Gumps.SendAction(tinker_tool_gump, button)
 
+        
+def selectGumpItem(requiredText, button):
+    Gumps.WaitForGump(tinker_tool_gump, 10000)
+    if Gumps.LastGumpTextExist(requiredText) \
+    and Gumps.CurrentGump() == tinker_tool_gump:
+        Gumps.SendAction(tinker_tool_gump, button)
+        
+        
 def makeTool(amount):
     if Items.ContainerCount(Player.Backpack, tinker_tool_id) < amount:
-        Gumps.WaitForGump(tinker_tool_gump, 10000)
-        if Gumps.LastGumpTextExist("You have worn out your tool!"):
-            useItem(tinker_tool_id)
-        
-        if not Gumps.CurrentGump() == tinker_tool_gump:
-            useItem(tinker_tool_id)
-        
-        Gumps.WaitForGump(tinker_tool_gump, 10000)
-        if Gumps.CurrentGump() == tinker_tool_gump:
-            Gumps.SendAction(tinker_tool_gump, 15) # Button: Tools
 
-        Gumps.WaitForGump(tinker_tool_gump, 10000)
-        if Gumps.CurrentGump() == tinker_tool_gump:
-            Gumps.SendAction(tinker_tool_gump, 23) # button: Tinkertool
+        useToolFirst()
+        selectGumpMenu("tinker's tools", 15) # Button: Tools
+        selectGumpItem("tinker's tools", 23) # Button: Tinkertool
 
+
+def makeBracelet():
+    useToolFirst()
+    selectGumpMenu("bracelet", 1) # Button: Jewelry
+    selectGumpItem("bracelet", 9) # Button: Bracelet
+    
 
 def clean():
     
@@ -42,25 +59,8 @@ def clean():
                 Items.Move(item, getCleanupPouch(), 1)
                 Timer.Create("MoveItem", 550)
         Misc.Pause(100)
-                
-def makeBracelet():
-    
-    Gumps.WaitForGump(tinker_tool_gump, 2000)
-    if Gumps.LastGumpTextExist("You have worn out your tool!"):
-        useItem(tinker_tool_id)
         
-    if not Gumps.CurrentGump() == tinker_tool_gump:
-        useItem(tinker_tool_id)
-    
-    Gumps.WaitForGump(tinker_tool_gump, 10000)
-    if Gumps.CurrentGump() == tinker_tool_gump:
-        Gumps.SendAction(tinker_tool_gump, 1) # Button: Tools
-
-    Gumps.WaitForGump(tinker_tool_gump, 10000)
-    if Gumps.CurrentGump() == tinker_tool_gump:
-        Gumps.SendAction(tinker_tool_gump, 9) # Button: Bracelet
-    
-
+        
 def getBankItem(item, less_amount, get_amount):
     if Items.BackpackCount(item, -1) < less_amount:
         if not Player.Bank:
@@ -69,7 +69,8 @@ def getBankItem(item, less_amount, get_amount):
         item = Items.FindByID(item, -1, Player.Bank.Serial)
         Items.Move(item, Player.Backpack.Serial, get_amount)
         Misc.Pause(550)
-    
+
+
 while True:
     makeTool(2)
     makeBracelet()

@@ -1,18 +1,23 @@
-# ===============================
-# Auto Lumberjacking V2
-# Author: Cray
+# Auto Lumberjacking by Cray
 # ===============================
 
-# SETTINGS
-axe = 0x40081CB8 # Your equippable Axe Static ID
+
+# SETTINGS: Lumberjacking
+# ===============================
+axe = 0x4006A1E2 # Your equippable Axe Static ID
 position_offset_x = -1 # Tree pos from the your character pos
 position_offset_y = 0
+times = 8
 
-runic_atlas = 0x405FADE0 # your Runic-Atlas
+# SETTINGS: Runes
+# ===============================
+# runebook = 0x4002E477 # your Roonbook
+runic_atlas = 0x405FCFCC # your Runic-Atlas
 bank_rune = 0 # Bank rune should be first of the Runic-Atlas
-runes = range(1, 33) # How many runes are in the Runic-Atlas
+runes = range(1, 44) # How many runes are in the Runic-Atlas
 
 # ITEM_ID
+# ===============================
 log = 0x1BDD
 board = 0x1BD7
 bank_items = {
@@ -37,11 +42,8 @@ log_colors = {
 
 def Lumberjacking():
     #LUMBERJACKING
-    Journal.Clear()
-    while Player.Weight <= Player.MaxWeight:
-        
-        if Journal.Search("not enough"):
-            break
+    count = 0
+    while Player.Weight <= Player.MaxWeight and (count < times):
         
         # EQUIP AXE
         if not Player.CheckLayer("LeftHand"):
@@ -68,7 +70,7 @@ def Lumberjacking():
                 Target.WaitForTarget(1000, False)
                 Target.TargetExecute(x, y, tile.StaticZ, tile_static_id)
                 Misc.Pause(1000)
-       
+        count += 1
 
             
             
@@ -145,4 +147,3 @@ while True:
         RecallToAtlas(rune)
         Lumberjacking()
         LogToBoard()
-        
