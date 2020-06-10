@@ -3,16 +3,21 @@
 # Author: Cray
 # ===============================
 
-# SETTINGS
-axe = 0x40081CB8 # Your equippable Axe Static ID
-position_offset_x = -1 # Tree pos from the your character pos
-position_offset_y = 0
+from Scripts.config import config
 
-runic_atlas = 0x405FADE0 # your Runic-Atlas
-bank_rune = 0 # Bank rune should be first of the Runic-Atlas
-runes = range(1, 33) # How many runes are in the Runic-Atlas
+# LOAD CONFIG
+atlas_serial = config.Lumberjacking[Misc.ShardName()][Player.Serial]["atlas_serial"]
+bank_rune = config.Lumberjacking[Misc.ShardName()][Player.Serial]["bank_rune"]
+runes = config.Lumberjacking[Misc.ShardName()][Player.Serial]["runes"]
+position_offset_x = config.Lumberjacking[Misc.ShardName()][Player.Serial]["position_offset_x"]
+position_offset_y = config.Lumberjacking[Misc.ShardName()][Player.Serial]["position_offset_y"]
+
 
 # ITEM_ID
+axes = {
+    0x0F43: "hatchet",
+    0x1443: "two handed axe"
+}
 log = 0x1BDD
 board = 0x1BD7
 bank_items = {
@@ -33,20 +38,46 @@ log_colors = {
     0x04aa: "Bloodwood",
     0x047f: "Frostwood"
 }
+
 # ===============================
 
-def Lumberjacking():
-    #LUMBERJACKING
+def getAxe():
+    # FIND LEFT HAND
+    hand_item = Player.GetItemOnLayer("LeftHand")
+    if hand_item:
+        if hand_item.ItemID in axes:
+            return hand_item
+    # FIND BACKPACK
+    for axe_id in axes:
+        item = Items.FindByID(axe_id, -1, Player.Backpack.Serial)
+        if item:
+            return item
+
+def equipAxe(axe):
+    # UNEQUIP NOT AXES
+    for layer in ["RightHand", "LeftHand"]:
+        if Player.CheckLayer(layer):
+            if Player.GetItemOnLayer(layer).ItemID in axes:
+                return
+            Player.UnEquipItemByLayer(layer)
+            Misc.Pause(550)
+    # EQUIP AXE
+    Player.EquipItem(axe)
+    Misc.Pause(550)
+
+    
+def lumberjacking():
+    
+    axe = getAxe()
+    
     Journal.Clear()
+    
     while Player.Weight <= Player.MaxWeight:
         
         if Journal.Search("not enough"):
             break
         
-        # EQUIP AXE
-        if not Player.CheckLayer("LeftHand"):
-            Player.EquipItem(axe)
-            Misc.Pause(1000)
+        equipAxe(axe)
         
         # TREE POSITION
         x = Player.Position.X + position_offset_x
@@ -57,75 +88,60 @@ def Lumberjacking():
         tiles = Statics.GetStaticsTileInfo(x, y, map_id)
         for i, tile in enumerate(tiles):
             if i == 1:
-                global tile_static_id
-                tile_static_id = tile.StaticID
-                Misc.SendMessage("TileID: %s" % tile_static_id)
+                Misc.SendMessage("TileID: %s" % tile.StaticID)
                 
                 # JACKING
                 Target.Cancel()
                 Misc.Pause(50)
                 Items.UseItem(axe)
                 Target.WaitForTarget(1000, False)
-                Target.TargetExecute(x, y, tile.StaticZ, tile_static_id)
+                Target.TargetExecute(x, y, tile.StaticZ, tile.StaticID)
                 Misc.Pause(1000)
-       
 
-            
-            
-# LOG TO BOARD
-def LogToBoard():
-    
+                
+def turnLogToBoard():
+    # LOG TO BOARD
     for log_color in log_colors.keys():
         item = Items.FindByID(log, log_color, Player.Backpack.Serial)
         if item:
             Target.Cancel()
             Misc.Pause(50)
             Misc.SendMessage(log)
-            Items.UseItem(axe)
+            Items.UseItem(getAxe())
             Target.WaitForTarget(1000, False)
             Target.TargetExecute(item)
             Misc.Pause(500)
+
+            
+def storeBank():
     
-def Bank():
-    # BANK
-    RecallToAtlas(bank_rune)
+    if Player.Weight <= Player.MaxWeight - 200:
+        return
+    
+    recallAtlas(atlas_serial, bank_rune)
     
     for bank_item in bank_items.keys():
-        count = 0
-        while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 10):
+        while Items.FindByID(bank_item, -1, Player.Backpack.Serial):
             item = Items.FindByID(bank_item, -1, Player.Backpack.Serial)
             if item:
                 Player.ChatSay(12, "bank")
-                Misc.Pause(500)
+                Misc.Pause(200)
                 Items.Move(item, Player.Bank, 0)
-                Misc.Pause(500)
-            count += 1
+                Misc.Pause(550)
 
 
-def RecallToRunebook(rune):
-    Items.UseItem(runebook)
-    Gumps.WaitForGump(89, 10000)
-    rune_button = rune + 50
-    Gumps.SendAction(89, rune_button)
-    Misc.SendMessage("Rune: %s" % rune_button)
-    Misc.Pause(500)
-
-
-def RecallToAtlas(rune):
-    # USE ATLAS
-    Target.Cancel()
-    Misc.Pause(50)
-    Items.UseItem(runic_atlas)
+def recallAtlas(atlas_serial, rune):
     
-    # PAGENATE
+    Items.UseItem(atlas_serial)
+    
+    # PAGENATION
     page = rune / 16
-    Misc.SendMessage("Page: %s" % page)
     for i in range(page):
         Gumps.WaitForGump(498, 10000)
         Gumps.SendAction(498, 1150)
     
     # SELECT RUNE
-    Misc.SendMessage("Rune: %s" % rune)
+    Misc.SendMessage("Rune: {page}-{rune}".format(page=page, rune=rune))
     rune_button = rune + 100
     Gumps.WaitForGump(498, 10000)
     Gumps.SendAction(498, rune_button)
@@ -136,13 +152,12 @@ def RecallToAtlas(rune):
     
     Misc.Pause(3500)
 
-LogToBoard()
+    
 
 while True:
     for rune in runes:
-        Bank()
-        #RecallToRunebook(rune)
-        RecallToAtlas(rune)
-        Lumberjacking()
-        LogToBoard()
+        turnLogToBoard()
+        storeBank()
+        recallAtlas(atlas_serial, rune)
+        lumberjacking()
         
