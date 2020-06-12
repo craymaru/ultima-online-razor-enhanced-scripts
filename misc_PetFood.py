@@ -24,17 +24,25 @@ foods = {
 }
 
 
+
+
 class PetFood:
     
-    def __init__(self, pet_serial, food_habit, trush_pouch_serial):
+    def __init__(self, pet_serial, food_habit):
         
         self.pet_serial = pet_serial
         self.foodHabit = food_habit
-        self.trush_pouch_serial = trush_pouch_serial
+        self.trush_pouch_serial = None
         self.ate = []
     
+        
     def __call__(self, Misc, Player, Mobiles, Items, Spells, Timer):
         
+
+        def getTrushPouch():
+            item = Items.FindByID(0x09B0, 0x09c4, Player.Backpack.Serial)
+            return item
+
         def castCreateFood():
             if not Timer.Check("Casting"):
                 Spells.CastMagery("Create Food")
@@ -64,6 +72,10 @@ class PetFood:
                     Items.Move(item, self.trush_pouch_serial, 0)
                     Timer.Create("MoveItem", 650)
 
+
+        if not self.trush_pouch_serial:
+            self.trush_pouch_serial = getTrushPouch().Serial
+
         self.ate = []
         while not self.ate:
             castCreateFood()
@@ -75,9 +87,8 @@ class PetFood:
 
         
 if __name__ == "<module>":
-    trush_pouch_serial = config.General[Misc.ShardName()][Player.Serial]["trush_pouch_serial"]
+    #trush_pouch_serial = config.General[Misc.ShardName()][Player.Serial]["trush_pouch_serial"]
     pet_serial = config.PetFood[Misc.ShardName()][Player.Serial]["pet_serial"]
     pet_food_habit = config.PetFood[Misc.ShardName()][Player.Serial]["pet_food_habit"]
-    petfood = PetFood(pet_serial, pet_food_habit, trush_pouch_serial)
-    while True:
-        petfood(Misc, Player, Mobiles, Items, Spells, Timer)
+    petfood = PetFood(pet_serial, pet_food_habit)
+    petfood(Misc, Player, Mobiles, Items, Spells, Timer)

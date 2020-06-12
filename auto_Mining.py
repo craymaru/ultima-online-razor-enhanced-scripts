@@ -11,11 +11,14 @@ from Scripts.config import config
 
 # SETTINGS: Mining
 # ===============================
-mini_ore_organize_bag = 0x4002B142
-roonbook = 0x40030BAA
-runic_atlas = 0x400E6EB7
-bank_rune = 0
-runes = range(1, 46)
+mini_ore_organize_bag = config.Mining[Misc.ShardName()][Player.Serial]["mini_ore_organize_bag"]
+runic_atlas = config.Mining[Misc.ShardName()][Player.Serial]["runic_atlas"]
+bank_rune = config.Mining[Misc.ShardName()][Player.Serial]["bank_rune"]
+runes = config.Mining[Misc.ShardName()][Player.Serial]["runes"]
+
+pet_serial = config.Mining[Misc.ShardName()][Player.Serial]["pet_serial"]
+pet_food_habit = config.Mining[Misc.ShardName()][Player.Serial]["pet_food_habit"]
+petfood = pt.PetFood(pet_serial, pet_food_habit)
 
 
 # ITEM_ID
@@ -155,19 +158,6 @@ def OrganizeToBank():
                 Misc.SendMessage("[" + str(item["amount"]) + "] " + item["name"], colorful())
     Misc.SendMessage(" ", 1150)
     Misc.Pause(1000)
-    
-
-
-def RecallToRunebook(rune):
-
-    Items.UseItem(roonbook)
-    Gumps.WaitForGump(89, 15000)
-    Misc.Pause(100)
-    Misc.SendMessage("RUNE: %s" % rune, colorful())
-    Misc.SendMessage("==============", 1150)
-    rune_button = rune + 50
-    Gumps.SendAction(89, rune_button)
-    Misc.Pause(3000)
 
 
 def RecallWithAtlas(rune):
@@ -183,7 +173,7 @@ def RecallWithAtlas(rune):
         Gumps.SendAction(498, 1150)
     
     # SELECT RUNE
-    Misc.SendMessage("Rune: {page}-{rune}".format(page=page, rune=rune))
+    Misc.SendMessage("Rune: {page}-{rune}".format(page=page, rune=rune), colorful())
     rune_button = rune + 100
     Gumps.WaitForGump(498, 5000)
     Gumps.SendAction(498, rune_button)
@@ -282,13 +272,6 @@ foods = {
 
 Misc.SendMessage("START", colorful())
 Misc.SendMessage("==============", 1150)
-
-
-trush_pouch_serial = config.General[Misc.ShardName()][Player.Serial]["trush_pouch_serial"]
-pet_serial = config.Mining[Misc.ShardName()][Player.Serial]["pet_serial"]
-pet_food_habit = config.Mining[Misc.ShardName()][Player.Serial]["pet_food_habit"]
-petfood = pt.PetFood(pet_serial, pet_food_habit, trush_pouch_serial)
-
 
 while True:
     

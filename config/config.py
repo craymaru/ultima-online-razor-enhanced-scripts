@@ -34,7 +34,20 @@ Mining = {
     "Stygian Lapis":{
         0x00017FAB: {
             "tags": { "account": 1, "slot": 2, "name": "Craymaru"},
+            "mini_ore_organize_bag": 0x4002B142,
+            "runic_atlas": 0x400E6EB7,
+            "bank_rune": 0,
+            "runes": range(1, 46),
             "pet_serial": 0x00018ABF,
+            "pet_food_habit": "meat",
+        },
+        0x000088A2: {
+            "tags": { "account": 5, "slot": 1, "name": "Cid"},
+            "mini_ore_organize_bag": 0x4007A405,
+            "runic_atlas": 0x400E6E91,
+            "bank_rune": 0,
+            "runes": range(1, 46),
+            "pet_serial": 0x00014FA8,
             "pet_food_habit": "meat"
         }
     }
