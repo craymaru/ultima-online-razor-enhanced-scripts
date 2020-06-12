@@ -27,7 +27,8 @@ bank_items = {
     0x318F: "Bark Fragment",
     0x3190: "Parasitic Plant",
     0x3191: "Luminescent Fungi",
-    0x3199: "Brilliant Amber"
+    0x3199: "Brilliant Amber",
+    0x5738: "crystal shards"
 }
 log_colors = {
     0x0000: "Log",
@@ -72,7 +73,8 @@ def lumberjacking():
     
     Journal.Clear()
     
-    while Player.Weight <= Player.MaxWeight:
+    Timer.Create("Lumberjacking", 10000)
+    while Player.Weight <= Player.MaxWeight and Timer.Check("Lumberjacking"):
         
         if Journal.Search("not enough"):
             break
@@ -128,8 +130,7 @@ def storeBank():
                 Player.ChatSay(12, "bank")
                 Misc.Pause(300)
                 Items.Move(item, Player.Bank, 0)
-                Misc.Pause(650)
-
+                Misc.Pause(550)
 
 def recallAtlas(atlas_serial, rune):
     

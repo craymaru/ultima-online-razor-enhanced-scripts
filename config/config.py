@@ -70,6 +70,14 @@ Lumberjacking = {
             "runes": range(1, 47), # How many runes are in the Runic-Atlas
             "position_offset_x": -1, # Tree pos from the your character pos
             "position_offset_y":  0
+        },
+        0x0000947F: {
+            "tags": { "account": 8, "slot": 1, "name": "Serah"},
+            "atlas_serial": 0x400E6ECA, # your Runic-Atlas
+            "bank_rune": 0, # Bank rune should be first of the Runic-Atlas
+            "runes": range(1, 47), # How many runes are in the Runic-Atlas
+            "position_offset_x": -1, # Tree pos from the your character pos
+            "position_offset_y":  0
         }
     }
 }

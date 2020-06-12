@@ -72,7 +72,7 @@ def getBankItem(item, less_amount, get_amount):
 
 
 while True:
+    getBankItem(ingot_id, 100, 400)
     makeTool(2)
     makeBracelet()
     clean()
-    getBankItem(ingot_id, 100, 400)
