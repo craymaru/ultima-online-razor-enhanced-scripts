@@ -120,14 +120,15 @@ def storeBank():
     
     recallAtlas(atlas_serial, bank_rune)
     
+    Timer.Create("storeBank", 10000)
     for bank_item in bank_items.keys():
-        while Items.FindByID(bank_item, -1, Player.Backpack.Serial):
+        while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and Timer.Check("storeBank"):
             item = Items.FindByID(bank_item, -1, Player.Backpack.Serial)
             if item:
                 Player.ChatSay(12, "bank")
-                Misc.Pause(200)
+                Misc.Pause(300)
                 Items.Move(item, Player.Bank, 0)
-                Misc.Pause(550)
+                Misc.Pause(650)
 
 
 def recallAtlas(atlas_serial, rune):
