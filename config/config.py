@@ -43,7 +43,7 @@ Mining = {
         },
         0x000088A2: {
             "tags": { "account": 5, "slot": 1, "name": "Cid"},
-            "mini_ore_organize_bag": 0x4007A405,
+            "mini_ore_organize_bag": 0x4012E2FB,
             "runic_atlas": 0x400E6E91,
             "bank_rune": 0,
             "runes": range(1, 46),
