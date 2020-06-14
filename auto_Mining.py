@@ -11,7 +11,7 @@ from Scripts.config import config
 
 # SETTINGS: Mining
 # ===============================
-container_serial = 0x400D520F
+container_serial = config.Mining[Misc.ShardName()][Player.Serial]["container_serial"]
 mini_ore_organize_bag = config.Mining[Misc.ShardName()][Player.Serial]["mini_ore_organize_bag"]
 runic_atlas = config.Mining[Misc.ShardName()][Player.Serial]["runic_atlas"]
 bank_rune = config.Mining[Misc.ShardName()][Player.Serial]["bank_rune"]
@@ -125,9 +125,9 @@ class ColorfulMassage:
 colorful = ColorfulMassage()
 
 
-def OrganizeToBank():
+def OrganizeToBank(container_serial):
     
-    if Player.Weight < Player.MaxWeight - 200:
+    if Player.Weight < Player.MaxWeight * 0.35:
        return 
     
     RecallWithAtlas(bank_rune)
@@ -135,8 +135,7 @@ def OrganizeToBank():
     for bank_item in bank_items.keys():
         count = 0
         while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 10):
-            Player.ChatSay(48, "bank")
-            Misc.Pause(200)
+            
             item = Items.FindByID(bank_item, -1, Player.Backpack.Serial)
             if item:
                 if item.ItemID == 0x1BF2:
@@ -145,8 +144,13 @@ def OrganizeToBank():
                     ingot_color = ""
                     Misc.SendMessage("Item: %s%s %s" % (ingot_color, bank_items[bank_item], item.Amount), colorful())
                 item_dic[item.ItemID][item.Hue]["amount"] += item.Amount
+                
+                if not container_serial:
+                    container_serial = Player.Bank.Serial
+                    Player.ChatSay(48, "bank")
+                    Misc.Pause(200)
                 Items.Move(item, container_serial, 0)
-                Misc.Pause(500)
+                Misc.Pause(550)
             count += 1
     
 
@@ -235,7 +239,7 @@ def mining():
     # MINING
     Journal.Clear()
     Timer.Create("Mining", 10000)
-    while Player.Weight < Player.MaxWeight - 50 or Timer.Check("Mining"):
+    while Player.Weight < Player.MaxWeight - 100 and Timer.Check("Mining"):
         
         if Journal.Search("There is no metal here to mine."):
             Misc.Pause(1000)
@@ -284,7 +288,7 @@ while True:
             Misc.Pause(1000)
             Timer.Create("PetFood", 5 * 60 * 1000)
         
-        OrganizeToBank()
+        OrganizeToBank(container_serial)
         RecallWithAtlas(rune)
         mining()
         melting(pet_serial)

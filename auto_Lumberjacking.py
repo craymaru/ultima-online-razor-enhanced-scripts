@@ -6,6 +6,7 @@
 from Scripts.config import config
 
 # LOAD CONFIG
+container_serial = config.Lumberjacking[Misc.ShardName()][Player.Serial]["container_serial"]
 atlas_serial = config.Lumberjacking[Misc.ShardName()][Player.Serial]["atlas_serial"]
 bank_rune = config.Lumberjacking[Misc.ShardName()][Player.Serial]["bank_rune"]
 runes = config.Lumberjacking[Misc.ShardName()][Player.Serial]["runes"]
@@ -20,7 +21,7 @@ axes = {
 }
 log = 0x1BDD
 board = 0x1BD7
-bank_items = {
+store_items = {
     0x1BDD: "Log",
     0x1BD7: "Board",
     0x2F5F: "Switch",
@@ -73,7 +74,7 @@ def lumberjacking():
     
     Journal.Clear()
     
-    Timer.Create("Lumberjacking", 10000)
+    Timer.Create("Lumberjacking", 8000)
     while Player.Weight <= Player.MaxWeight and Timer.Check("Lumberjacking"):
         
         if Journal.Search("not enough"):
@@ -115,21 +116,23 @@ def turnLogToBoard():
             Misc.Pause(500)
 
             
-def storeBank():
+def storeItems(container_serial):
     
     if Player.Weight <= Player.MaxWeight - 200:
         return
     
     recallAtlas(atlas_serial, bank_rune)
     
-    Timer.Create("storeBank", 10000)
-    for bank_item in bank_items.keys():
-        while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and Timer.Check("storeBank"):
-            item = Items.FindByID(bank_item, -1, Player.Backpack.Serial)
+    Timer.Create("Store", 8000)
+    for store_item in store_items.keys():
+        while Items.FindByID(store_item, -1, Player.Backpack.Serial) and Timer.Check("Store"):
+            item = Items.FindByID(store_item, -1, Player.Backpack.Serial)
             if item:
-                Player.ChatSay(12, "bank")
-                Misc.Pause(300)
-                Items.Move(item, Player.Bank, 0)
+                if not container_serial:
+                    Player.ChatSay(12, "bank")
+                    Misc.Pause(300)
+                    container_serial = Player.Bank
+                Items.Move(item, container_serial, 0)
                 Misc.Pause(550)
 
 def recallAtlas(atlas_serial, rune):
@@ -159,7 +162,7 @@ def recallAtlas(atlas_serial, rune):
 while True:
     for rune in runes:
         turnLogToBoard()
-        storeBank()
+        storeItems(container_serial)
         recallAtlas(atlas_serial, rune)
         lumberjacking()
         

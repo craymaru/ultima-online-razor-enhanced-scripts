@@ -34,19 +34,21 @@ Mining = {
     "Stygian Lapis":{
         0x00017FAB: {
             "tags": { "account": 1, "slot": 2, "name": "Craymaru"},
+            "container_serial": 0x400CA97E,
             "mini_ore_organize_bag": 0x4002B142,
             "runic_atlas": 0x400E6EB7,
-            "bank_rune": 0,
-            "runes": range(1, 46),
+            "bank_rune": 47,
+            "runes": range(0, 46),
             "pet_serial": 0x00018ABF,
             "pet_food_habit": "meat",
         },
         0x000088A2: {
             "tags": { "account": 5, "slot": 1, "name": "Cid"},
+            "container_serial": 0x400CA97E,
             "mini_ore_organize_bag": 0x4012E2FB,
             "runic_atlas": 0x400E6E91,
-            "bank_rune": 0,
-            "runes": range(1, 46),
+            "bank_rune": 47,
+            "runes": range(0, 46),
             "pet_serial": 0x00014FA8,
             "pet_food_habit": "meat"
         }
@@ -57,6 +59,7 @@ Lumberjacking = {
     "Stygian Lapis":{
         0x0000139C: {
             "tags": { "account": 3, "slot": 2, "name": "Ray"},
+            "container_serial": None,
             "atlas_serial": 0x405FFFB9, # your Runic-Atlas
             "bank_rune": 0, # Bank rune should be first of the Runic-Atlas
             "runes": range(1, 33), # How many runes are in the Runic-Atlas
@@ -65,6 +68,7 @@ Lumberjacking = {
         },
         0x00001F80: {
             "tags": { "account": 4, "slot": 3, "name": "Serah"},
+            "container_serial": None,
             "atlas_serial": 0x405FADE0, # your Runic-Atlas
             "bank_rune": 0, # Bank rune should be first of the Runic-Atlas
             "runes": range(1, 47), # How many runes are in the Runic-Atlas
@@ -73,9 +77,10 @@ Lumberjacking = {
         },
         0x0000947F: {
             "tags": { "account": 8, "slot": 1, "name": "Serah"},
+            "container_serial": 0x400CA9A3,
             "atlas_serial": 0x400E6ECA, # your Runic-Atlas
-            "bank_rune": 0, # Bank rune should be first of the Runic-Atlas
-            "runes": range(1, 47), # How many runes are in the Runic-Atlas
+            "bank_rune": 47, # Bank rune should be first of the Runic-Atlas
+            "runes": range(0, 46), # How many runes are in the Runic-Atlas
             "position_offset_x": -1, # Tree pos from the your character pos
             "position_offset_y":  0
         }
