@@ -14,6 +14,7 @@ containers = {
     'trash barrel': myItem( 'trash barrel', 0x0E77, 0x03B2, 'container', 1 ),
     'wooden box': myItem( 'wooden box', 0x0E7D, 0x0000, 'container', 1 ),
     'wooden chest': myItem( 'wooden chest', 0x0E43, 0x0000, 'container', 1 ),
+    'trash pouch': myItem( 'trash pouch', 0x09B0, 0x09c4, 'container', 1 ),
 }
 
 
@@ -38,6 +39,27 @@ def FindTrashBarrel( Items ):
         return None
     else:
         return trashBarrel[ 0 ]
+
+
+def FindTrashPouch( Items ):
+    '''
+    Locates a trash pouch within reach
+    '''
+
+    global containers
+
+    trashPouchFilter = Items.Filter()
+    trashPouchFilter.RangeMax = 0
+    trashPouchFilter.RangeMax = 2
+    trashPouchFilter.Graphics = List[int]( [ containers[ 'trash pouch' ].itemID ] )
+    trashPouchFilter.Hues = List[int]( [ containers[ 'trash pouch' ].color ] )
+
+    trashPouch = Items.ApplyFilter( trashPouchFilter )
+
+    if len( trashPouch ) == 0:
+        return None
+    else:
+        return trashPouch[ 0 ]
 
 
 def FindHatch( Items ):

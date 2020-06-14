@@ -33,13 +33,14 @@ def FindCarpentryTool( container ):
 
 class CarpentryCraftable ( Craftable ):
     name = None
+    itemID = None
     retainsMark = None
     retainsColor = None
     minSkill = None
     resourcesNeeded = None
     gumpPath = None
 
-    def __init__ ( self, name, retainsMark, retainsColor, minSkill, resourcesNeeded, gumpPath ):
+    def __init__ ( self, name, itemID, retainsMark, retainsColor, minSkill, resourcesNeeded, gumpPath ):
         self.retainsMark = retainsMark
         self.retainsColor = retainsColor
 
@@ -51,6 +52,7 @@ carpentryCraftables = {
     ### Other: Gump Button 1 ###
     'barrel staves': CarpentryCraftable(
         name = 'barrel staves',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 0.0 },
@@ -59,6 +61,7 @@ carpentryCraftables = {
     ),
     'barrel lid': CarpentryCraftable(
         name = 'barrel lid',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 11.0 },
@@ -67,6 +70,7 @@ carpentryCraftables = {
     ),
     'short music stand (left)': CarpentryCraftable(
         name = 'short music stand (left)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9 },
@@ -75,6 +79,7 @@ carpentryCraftables = {
     ),
     'tall music stand (left)': CarpentryCraftable(
         name = 'tall music stand (left)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 81.5 },
@@ -83,6 +88,7 @@ carpentryCraftables = {
     ),
     'easel (south)': CarpentryCraftable(
         name = 'easel (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 86.8 },
@@ -94,6 +100,7 @@ carpentryCraftables = {
     ### Furniture: Gump Button 8 ###
     'foot stool': CarpentryCraftable(
         name = 'foot stool',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 11.0 },
@@ -102,6 +109,7 @@ carpentryCraftables = {
     ),
     'stool': CarpentryCraftable(
         name = 'stool',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 11.0 },
@@ -110,6 +118,7 @@ carpentryCraftables = {
     ),
     'straw chair': CarpentryCraftable(
         name = 'straw chair',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 21.0 },
@@ -118,6 +127,7 @@ carpentryCraftables = {
     ),
     'wooden chair': CarpentryCraftable(
         name = 'wooden chair',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 21.0 },
@@ -126,6 +136,7 @@ carpentryCraftables = {
     ),
     'Vesper-style chair': CarpentryCraftable(
         name = 'Vesper-style chair',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 42.1 },
@@ -134,6 +145,7 @@ carpentryCraftables = {
     ),
     'Trinsic-style chair': CarpentryCraftable(
         name = 'Trinsic-style chair',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 42.1 },
@@ -142,6 +154,7 @@ carpentryCraftables = {
     ),
     'wooden bench': CarpentryCraftable(
         name = 'wooden bench',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 52.6 },
@@ -150,6 +163,7 @@ carpentryCraftables = {
     ),
     'wooden throne': CarpentryCraftable(
         name = 'wooden throne',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 52.6 },
@@ -158,6 +172,7 @@ carpentryCraftables = {
     ),
     'Magnicia-style throne': CarpentryCraftable(
         name = 'Magnicia-style throne',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6 },
@@ -166,6 +181,7 @@ carpentryCraftables = {
     ),
     'small table': CarpentryCraftable(
         name = 'small table',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 42.1 },
@@ -174,6 +190,7 @@ carpentryCraftables = {
     ),
     'writing table': CarpentryCraftable(
         name = 'writing table',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 63.1 },
@@ -182,6 +199,7 @@ carpentryCraftables = {
     ),
     'large table': CarpentryCraftable(
         name = 'large table',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 63.1 },
@@ -190,6 +208,7 @@ carpentryCraftables = {
     ),
     'Yew wood table': CarpentryCraftable(
         name = 'Yew wood table',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 84.2 },
@@ -198,6 +217,7 @@ carpentryCraftables = {
     ),
     'elegant low table': CarpentryCraftable(
         name = 'elegant low table',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 80.0 },
@@ -206,6 +226,7 @@ carpentryCraftables = {
     ),
     'plain low table': CarpentryCraftable(
         name = 'plain low table',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 80.0 },
@@ -217,6 +238,7 @@ carpentryCraftables = {
     ### Containers: Gump Button 15 ###
     'wooden box': CarpentryCraftable(
         name = 'wooden box',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 21.0 },
@@ -225,6 +247,7 @@ carpentryCraftables = {
     ),
     'small crate': CarpentryCraftable(
         name = 'small crate',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 10.0 },
@@ -233,6 +256,7 @@ carpentryCraftables = {
     ),
     'medium crate': CarpentryCraftable(
         name = 'medium crate',
+        itemID = 0x0E3F,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 31.0 },
@@ -241,6 +265,7 @@ carpentryCraftables = {
     ),
     'large crate': CarpentryCraftable(
         name = 'large crate',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 47.3 },
@@ -249,6 +274,7 @@ carpentryCraftables = {
     ),
     'wooden chest': CarpentryCraftable(
         name = 'wooden chest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6 },
@@ -257,6 +283,7 @@ carpentryCraftables = {
     ),
     'wooden shelf': CarpentryCraftable(
         name = 'wooden shelf',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 31.5 },
@@ -265,6 +292,7 @@ carpentryCraftables = {
     ),
     'armoire (red)': CarpentryCraftable(
         name = 'armoire (red)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 84.2 },
@@ -273,6 +301,7 @@ carpentryCraftables = {
     ),
     'armoire': CarpentryCraftable(
         name = 'armoire',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 84.2 },
@@ -281,6 +310,7 @@ carpentryCraftables = {
     ),
     'treasure chest (silver)': CarpentryCraftable(
         name = 'treasure chest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 110.0 },
@@ -289,6 +319,7 @@ carpentryCraftables = {
     ),
     'treasure chest (silver and gold)': CarpentryCraftable(
         name = 'treasure chest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 115.0 },
@@ -297,6 +328,7 @@ carpentryCraftables = {
     ),
     'treasure chest (scrolls and potions)': CarpentryCraftable(
         name = 'treasure chest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 115.0 },
@@ -305,6 +337,7 @@ carpentryCraftables = {
     ),
     'gilded wooden chest': CarpentryCraftable(
         name = 'gilded wooden chest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 120.0 },
@@ -313,6 +346,7 @@ carpentryCraftables = {
     ),
     'gothic chest': CarpentryCraftable(
         name = 'gothic chest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 100.0 },
@@ -321,6 +355,7 @@ carpentryCraftables = {
     ),
     'ornate wooden chest': CarpentryCraftable(
         name = 'ornate wooden chest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 120.0 },
@@ -329,6 +364,7 @@ carpentryCraftables = {
     ),
     'wooden footlocker': CarpentryCraftable(
         name = 'wooden footlocker',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 120.0 },
@@ -337,6 +373,7 @@ carpentryCraftables = {
     ),
     'finished wooden chest': CarpentryCraftable(
         name = 'finished wooden chest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 120.0 },
@@ -345,6 +382,7 @@ carpentryCraftables = {
     ),
     'short cabinet': CarpentryCraftable(
         name = 'short cabinet',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 120.0 },
@@ -353,6 +391,7 @@ carpentryCraftables = {
     ),
     'tall cabinet': CarpentryCraftable(
         name = 'tall cabinet',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 120.0 },
@@ -361,6 +400,7 @@ carpentryCraftables = {
     ),
     'plain wooden chest': CarpentryCraftable(
         name = 'plain wooden chest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 90.0 },
@@ -369,6 +409,7 @@ carpentryCraftables = {
     ),
     'red armoire': CarpentryCraftable(
         name = 'red armoire',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 90.0 },
@@ -377,6 +418,7 @@ carpentryCraftables = {
     ),
     'elegant armoire': CarpentryCraftable(
         name = 'elegant armoire',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 90.0 },
@@ -385,6 +427,7 @@ carpentryCraftables = {
     ),
     'maple armoire': CarpentryCraftable(
         name = 'maple armoire',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 90.0 },
@@ -393,6 +436,7 @@ carpentryCraftables = {
     ),
     'cherry armoire': CarpentryCraftable(
         name = 'cherry armoire',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 90.0 },
@@ -401,6 +445,7 @@ carpentryCraftables = {
     ),
     'keg': CarpentryCraftable(
         name = 'keg',
+        itemID = None,
         retainsMark = False,
         retainsColor = False,
         minSkill = { 'Carpentry': 57.8 },
@@ -411,6 +456,7 @@ carpentryCraftables = {
     ### Weapons and Armor: Gump Button 22 ###
     'shepherd\'s crook': CarpentryCraftable(
         name = 'shepherd\'s crook',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9 },
@@ -419,6 +465,7 @@ carpentryCraftables = {
     ),
     'quarter staff': CarpentryCraftable(
         name = 'quarter staff',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6 },
@@ -427,6 +474,7 @@ carpentryCraftables = {
     ),
     'gnarled staff': CarpentryCraftable(
         name = 'gnarled staff',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9 },
@@ -435,6 +483,7 @@ carpentryCraftables = {
     ),
     'wooden shield': CarpentryCraftable(
         name = 'wooden shield',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 52.6 },
@@ -443,6 +492,7 @@ carpentryCraftables = {
     ),
     'club': CarpentryCraftable(
         name = 'club',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 28.2 },
@@ -451,6 +501,7 @@ carpentryCraftables = {
     ),
     'fishing pole': CarpentryCraftable(
         name = 'fishing pole',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 68.4, 'Tailoring': 40.0 },
@@ -462,6 +513,7 @@ carpentryCraftables = {
     ### Instruments: Gump Button 29 ###
     'lap harp': CarpentryCraftable(
         name = 'lap harp',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 63.1, 'Musicianship': 45.0 },
@@ -470,6 +522,7 @@ carpentryCraftables = {
     ),
     'standing harp': CarpentryCraftable(
         name = 'standing harp',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9, 'Musicianship': 45.0 },
@@ -478,6 +531,7 @@ carpentryCraftables = {
     ),
     'drum': CarpentryCraftable(
         name = 'drum',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 57.8, 'Musicianship': 45.0 },
@@ -486,6 +540,7 @@ carpentryCraftables = {
     ),
     'lute': CarpentryCraftable(
         name = 'lute',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 68.4, 'Musicianship': 45.0 },
@@ -494,6 +549,7 @@ carpentryCraftables = {
     ),
     'tambourine': CarpentryCraftable(
         name = 'tambourine',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 57.8, 'Musicianship': 45.0 },
@@ -502,6 +558,7 @@ carpentryCraftables = {
     ),
     'tambourine (tassle)': CarpentryCraftable(
         name = 'tambourine (tassle)',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 57.8, 'Musicianship': 45.0 },
@@ -510,6 +567,7 @@ carpentryCraftables = {
     ),
     'bamboo flute': CarpentryCraftable(
         name = 'bamboo flute',
+        itemID = None,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 80.0, 'Musicianship': 45.0 },
@@ -521,6 +579,7 @@ carpentryCraftables = {
     ### Misc. Add-Ons: Gump Button 36 ###
     'small bed (south)': CarpentryCraftable(
         name = 'small bed (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 94.7, 'Tailoring': 75.0 },
@@ -529,6 +588,7 @@ carpentryCraftables = {
     ),
     'small bed (east)': CarpentryCraftable(
         name = 'small bed (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 94.7, 'Tailoring': 75.0 },
@@ -537,6 +597,7 @@ carpentryCraftables = {
     ),
     'large bed (south)': CarpentryCraftable(
         name = 'large bed (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 94.7, 'Tailoring': 75.0 },
@@ -545,6 +606,7 @@ carpentryCraftables = {
     ),
     'large bed (east)': CarpentryCraftable(
         name = 'large bed (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 94.7, 'Tailoring': 75.0 },
@@ -553,6 +615,7 @@ carpentryCraftables = {
     ),
     'dartboard (south)': CarpentryCraftable(
         name = 'dartboard (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 15.7 },
@@ -561,6 +624,7 @@ carpentryCraftables = {
     ),
     'dartboard (east)': CarpentryCraftable(
         name = 'dartboard (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 15.7 },
@@ -569,6 +633,7 @@ carpentryCraftables = {
     ),
     'bulletin board (east)': CarpentryCraftable(
         name = 'bulletin board (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 85.0 },
@@ -577,6 +642,7 @@ carpentryCraftables = {
     ),
     'bulletin board (south)': CarpentryCraftable(
         name = 'bulletin board (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 85.0 },
@@ -585,6 +651,7 @@ carpentryCraftables = {
     ),
     'ballot box': CarpentryCraftable(
         name = 'ballot box',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 47.3 },
@@ -593,6 +660,7 @@ carpentryCraftables = {
     ),
     'pentagram': CarpentryCraftable(
         name = 'pentagram',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 100.0, 'Magery': 75.0 },
@@ -601,6 +669,7 @@ carpentryCraftables = {
     ),
     'abbatoir': CarpentryCraftable(
         name = 'abbatoir',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 100.0, 'Magery': 50.0 },
@@ -609,6 +678,7 @@ carpentryCraftables = {
     ),
     'stone abbatoir': CarpentryCraftable(
         name = 'stone abbatoir',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 115.0, 'Magery': 100.0 },
@@ -620,6 +690,7 @@ carpentryCraftables = {
     ### Blacksmithing: Gump Button 43 ###
     'small forge': CarpentryCraftable(
         name = 'small forge',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6, 'Blacksmithing': 75.0 },
@@ -628,6 +699,7 @@ carpentryCraftables = {
     ),
     'large forge (east)': CarpentryCraftable(
         name = 'large forge (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9, 'Blacksmithing': 80.0 },
@@ -636,6 +708,7 @@ carpentryCraftables = {
     ),
     'large forge (south)': CarpentryCraftable(
         name = 'large forge (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9, 'Blacksmithing': 80.0 },
@@ -644,6 +717,7 @@ carpentryCraftables = {
     ),
     'anvil (east)': CarpentryCraftable(
         name = 'anvil (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6, 'Blacksmithing': 75.0 },
@@ -652,6 +726,7 @@ carpentryCraftables = {
     ),
     'anvil (south)': CarpentryCraftable(
         name = 'anvil (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6, 'Blacksmithing': 75.0 },
@@ -663,6 +738,7 @@ carpentryCraftables = {
     ### Training: Gump Button 50 ###
     'training dummy (east)': CarpentryCraftable(
         name = 'training dummy (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 68.4, 'Tailoring': 50.0 },
@@ -671,6 +747,7 @@ carpentryCraftables = {
     ),
     'training dummy (south)': CarpentryCraftable(
         name = 'training dummy (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 68.4, 'Tailoring': 50.0 },
@@ -679,6 +756,7 @@ carpentryCraftables = {
     ),
     'pickpocket dip (east)': CarpentryCraftable(
         name = 'pickpocket dip (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6, 'Tailoring': 50.0 },
@@ -687,6 +765,7 @@ carpentryCraftables = {
     ),
     'pickpocket dip (south)': CarpentryCraftable(
         name = 'pickpocket dip (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6, 'Tailoring': 50.0 },
@@ -698,6 +777,7 @@ carpentryCraftables = {
     ### Tailoring and Cooking: Gump Button 57 ###
     'spinning wheel (east)': CarpentryCraftable(
         name = 'spinning wheel (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6, 'Tailoring': 65.0 },
@@ -706,6 +786,7 @@ carpentryCraftables = {
     ),
     'spinning wheel (south)': CarpentryCraftable(
         name = 'spinning wheel (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6, 'Tailoring': 65.0 },
@@ -714,6 +795,7 @@ carpentryCraftables = {
     ),
     'loom (east)': CarpentryCraftable(
         name = 'loom (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 84.2, 'Tailoring': 65.0 },
@@ -722,6 +804,7 @@ carpentryCraftables = {
     ),
     'loom (south)': CarpentryCraftable(
         name = 'loom (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 84.2, 'Tailoring': 65.0 },
@@ -733,6 +816,7 @@ carpentryCraftables = {
     ### Cooking: Gump Button 64 ###
     'stone oven (east)': CarpentryCraftable(
         name = 'stone oven (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 68.4, 'Tinkering': 50.0 },
@@ -741,6 +825,7 @@ carpentryCraftables = {
     ),
     'stone oven (south)': CarpentryCraftable(
         name = 'stone oven (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 68.4, 'Tinkering': 50.0 },
@@ -749,6 +834,7 @@ carpentryCraftables = {
     ),
     'flour mill (east)': CarpentryCraftable(
         name = 'flour mill (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 94.7, 'Tinkering': 50.0 },
@@ -757,6 +843,7 @@ carpentryCraftables = {
     ),
     'flour mill (south)': CarpentryCraftable(
         name = 'flour mill (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 94.7, 'Tinkering': 50.0 },
@@ -765,6 +852,7 @@ carpentryCraftables = {
     ),
     'water trough (east)': CarpentryCraftable(
         name = 'water trough (east)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 94.7 },
@@ -773,6 +861,7 @@ carpentryCraftables = {
     ),
     'water trough (south)': CarpentryCraftable(
         name = 'water trough (south)',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 94.7 },
@@ -784,6 +873,7 @@ carpentryCraftables = {
     ### Ship Parts: Gump Button 71 ###
     'ship ribs': CarpentryCraftable(
         name = 'ship ribs',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 85.0 },
@@ -795,6 +885,7 @@ carpentryCraftables = {
     ### Ship Upgrades: Gump Button 78 ###
     'Crow\'s Nest': CarpentryCraftable(
         name = 'Crow\'s Nest',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 85.0 },
@@ -803,6 +894,7 @@ carpentryCraftables = {
     ),
     'Experience Boost': CarpentryCraftable(
         name = 'Experience Boost',
+        itemID = None,
         retainsMark = False,
         retainsColor = True,
         minSkill = { 'Carpentry': 85.0 },

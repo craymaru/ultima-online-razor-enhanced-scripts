@@ -1,17 +1,19 @@
-from Scripts.glossary.crafting.tailoring import tailoringTools, FindTailoringTool, tailoringCraftables
+from Scripts.glossary.colors import colors
+from Scripts.glossary.crafting.carpentry import FindCarpentryTool, carpentryCraftables
+from Scripts.glossary.items.containers import FindTrashPouch
 
+
+board_id = 0x1BD7
 gump_id = 949095101
 
-# itemToCraft = tailoringCraftables["fur boots"]
-# itemToCraft = tailoringCraftables["ninja tabi"]
-itemToCraft = tailoringCraftables["cloth ninja hood"]
+itemToCraft = carpentryCraftables["medium crate"]
 
 
 def useToolFirst(tool_gump):
     Gumps.WaitForGump(tool_gump, 2000)
     if Gumps.LastGumpTextExist("You have worn out your tool!") \
     or not Gumps.CurrentGump() == tool_gump:
-        item = FindTailoringTool(Player.Backpack)
+        item = FindCarpentryTool(Player.Backpack)
         if item:
             Items.UseItem(item)
         else:
@@ -56,6 +58,7 @@ def getBankItem(item, less_amount, get_amount):
 
 
 while True:
-    # getBankItem(ingot_id, 100, 400)
+    getBankItem(board_id, 100, 200)
     createItem(itemToCraft)
     clean(itemToCraft.itemID)
+
