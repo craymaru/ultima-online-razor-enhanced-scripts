@@ -454,7 +454,16 @@ carpentryCraftables = {
         gumpPath = ( GumpSelection( 949095101, 15 ), GumpSelection( 949095101, 163 ) )
     ),
 
-    ### Weapons and Armor: Gump Button 22 > 29(fixed) ###
+    ### Weapons : Gump Button 22 ###
+    'bokuto': CarpentryCraftable(
+        name = 'bokuto',
+        itemID = 0x27A8,
+        retainsMark = True,
+        retainsColor = True,
+        minSkill = { 'Carpentry': 70.0 },
+        resourcesNeeded = { 'boards': 6 },
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 23 ) )
+    ),
     'shepherd\'s crook': CarpentryCraftable(
         name = 'shepherd\'s crook',
         itemID = None,
@@ -462,16 +471,7 @@ carpentryCraftables = {
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9 },
         resourcesNeeded = { 'boards': 7 },
-        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 2 ) )
-    ),
-    'quarter staff': CarpentryCraftable(
-        name = 'quarter staff',
-        itemID = None,
-        retainsMark = True,
-        retainsColor = True,
-        minSkill = { 'Carpentry': 73.6 },
-        resourcesNeeded = { 'boards': 6 },
-        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 9 ) )
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 2 ) )
     ),
     'gnarled staff': CarpentryCraftable(
         name = 'gnarled staff',
@@ -480,8 +480,30 @@ carpentryCraftables = {
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9 },
         resourcesNeeded = { 'boards': 7 },
-        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 16 ) )
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 16 ) )
     ),
+    'club': CarpentryCraftable(
+        name = 'club',
+        itemID = None,
+        retainsMark = True,
+        retainsColor = True,
+        minSkill = { 'Carpentry': 28.2 },
+        resourcesNeeded = { 'boards': 6 },
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 30 ) )
+    ),
+    'fishing pole': CarpentryCraftable(
+        name = 'fishing pole',
+        itemID = None,
+        retainsMark = False,
+        retainsColor = True,
+        minSkill = { 'Carpentry': 68.4, 'Tailoring': 40.0 },
+        resourcesNeeded = { 'boards': 5, 'cloth': 5 },
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 37 ) )
+    ),
+
+    ### Armors: Gump Button 29 ###
+
+    
     'wooden shield': CarpentryCraftable(
         name = 'wooden shield',
         itemID = 0x1B7A,
@@ -491,25 +513,6 @@ carpentryCraftables = {
         resourcesNeeded = { 'boards': 9 },
         gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 2 ) ) # Fixed
     ),
-    'club': CarpentryCraftable(
-        name = 'club',
-        itemID = None,
-        retainsMark = True,
-        retainsColor = True,
-        minSkill = { 'Carpentry': 28.2 },
-        resourcesNeeded = { 'boards': 6 },
-        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 30 ) )
-    ),
-    'fishing pole': CarpentryCraftable(
-        name = 'fishing pole',
-        itemID = None,
-        retainsMark = False,
-        retainsColor = True,
-        minSkill = { 'Carpentry': 68.4, 'Tailoring': 40.0 },
-        resourcesNeeded = { 'boards': 5, 'cloth': 5 },
-        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 37 ) )
-    ),
-
 
     ### Instruments: Gump Button 29 ###
     'lap harp': CarpentryCraftable(

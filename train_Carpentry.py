@@ -58,7 +58,9 @@ def getBankItem(item, less_amount, get_amount):
 while True:
     getBankItem(board_id, 100, 200)
     
-    if carpentryCraftables["wooden shield"].minSkill <= Player.GetRealSkillValue("Carpentry"):
+    if carpentryCraftables["bokuto"].minSkill <= Player.GetRealSkillValue("Carpentry"):
+        itemToCraft = carpentryCraftables["bokuto"]
+    elif carpentryCraftables["wooden shield"].minSkill <= Player.GetRealSkillValue("Carpentry"):
         itemToCraft = carpentryCraftables["wooden shield"]
     elif carpentryCraftables["medium crate"].minSkill <= Player.GetRealSkillValue("Carpentry"):
         itemToCraft = carpentryCraftables["medium crate"]

@@ -11,6 +11,7 @@ from Scripts.config import config
 
 # SETTINGS: Mining
 # ===============================
+container_serial = 0x400D520F
 mini_ore_organize_bag = config.Mining[Misc.ShardName()][Player.Serial]["mini_ore_organize_bag"]
 runic_atlas = config.Mining[Misc.ShardName()][Player.Serial]["runic_atlas"]
 bank_rune = config.Mining[Misc.ShardName()][Player.Serial]["bank_rune"]
@@ -144,7 +145,7 @@ def OrganizeToBank():
                     ingot_color = ""
                     Misc.SendMessage("Item: %s%s %s" % (ingot_color, bank_items[bank_item], item.Amount), colorful())
                 item_dic[item.ItemID][item.Hue]["amount"] += item.Amount
-                Items.Move(item, Player.Bank.Serial, 0)
+                Items.Move(item, container_serial, 0)
                 Misc.Pause(500)
             count += 1
     

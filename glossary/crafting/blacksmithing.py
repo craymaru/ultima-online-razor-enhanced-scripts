@@ -138,7 +138,7 @@ blacksmithCraftables = {
     'platemail gorget': BlacksmithCraftable(
         name = 'platemail gorget',
         itemID = 0x1413,
-        retainsMark = True,
+        retainsMark = True,w
         retainsColor = True,
         minSkill = 56.4,
         resourcesNeeded = { 'ingots': 10 },
