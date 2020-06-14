@@ -43,6 +43,7 @@ class CarpentryCraftable ( Craftable ):
     def __init__ ( self, name, itemID, retainsMark, retainsColor, minSkill, resourcesNeeded, gumpPath ):
         self.retainsMark = retainsMark
         self.retainsColor = retainsColor
+        self.itemID = itemID
 
         # Invoking __init__ of parent class
         Craftable.__init__( self, name, minSkill, resourcesNeeded, gumpPath )
@@ -453,7 +454,7 @@ carpentryCraftables = {
         gumpPath = ( GumpSelection( 949095101, 15 ), GumpSelection( 949095101, 163 ) )
     ),
 
-    ### Weapons and Armor: Gump Button 22 ###
+    ### Weapons and Armor: Gump Button 22 > 29(fixed) ###
     'shepherd\'s crook': CarpentryCraftable(
         name = 'shepherd\'s crook',
         itemID = None,
@@ -461,7 +462,7 @@ carpentryCraftables = {
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9 },
         resourcesNeeded = { 'boards': 7 },
-        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 2 ) )
+        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 2 ) )
     ),
     'quarter staff': CarpentryCraftable(
         name = 'quarter staff',
@@ -470,7 +471,7 @@ carpentryCraftables = {
         retainsColor = True,
         minSkill = { 'Carpentry': 73.6 },
         resourcesNeeded = { 'boards': 6 },
-        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 9 ) )
+        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 9 ) )
     ),
     'gnarled staff': CarpentryCraftable(
         name = 'gnarled staff',
@@ -479,16 +480,16 @@ carpentryCraftables = {
         retainsColor = True,
         minSkill = { 'Carpentry': 78.9 },
         resourcesNeeded = { 'boards': 7 },
-        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 16 ) )
+        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 16 ) )
     ),
     'wooden shield': CarpentryCraftable(
         name = 'wooden shield',
-        itemID = None,
+        itemID = 0x1B7A,
         retainsMark = True,
         retainsColor = True,
         minSkill = { 'Carpentry': 52.6 },
         resourcesNeeded = { 'boards': 9 },
-        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 23 ) )
+        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 2 ) ) # Fixed
     ),
     'club': CarpentryCraftable(
         name = 'club',
@@ -497,7 +498,7 @@ carpentryCraftables = {
         retainsColor = True,
         minSkill = { 'Carpentry': 28.2 },
         resourcesNeeded = { 'boards': 6 },
-        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 30 ) )
+        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 30 ) )
     ),
     'fishing pole': CarpentryCraftable(
         name = 'fishing pole',
@@ -506,7 +507,7 @@ carpentryCraftables = {
         retainsColor = True,
         minSkill = { 'Carpentry': 68.4, 'Tailoring': 40.0 },
         resourcesNeeded = { 'boards': 5, 'cloth': 5 },
-        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 37 ) )
+        gumpPath = ( GumpSelection( 949095101, 29 ), GumpSelection( 949095101, 37 ) )
     ),
 
 

@@ -6,8 +6,6 @@ from Scripts.glossary.items.containers import FindTrashPouch
 board_id = 0x1BD7
 gump_id = 949095101
 
-itemToCraft = carpentryCraftables["medium crate"]
-
 
 def useToolFirst(tool_gump):
     Gumps.WaitForGump(tool_gump, 2000)
@@ -59,6 +57,11 @@ def getBankItem(item, less_amount, get_amount):
 
 while True:
     getBankItem(board_id, 100, 200)
+    
+    if carpentryCraftables["wooden shield"].minSkill <= Player.GetRealSkillValue("Carpentry"):
+        itemToCraft = carpentryCraftables["wooden shield"]
+    elif carpentryCraftables["medium crate"].minSkill <= Player.GetRealSkillValue("Carpentry"):
+        itemToCraft = carpentryCraftables["medium crate"]
+        
     createItem(itemToCraft)
     clean(itemToCraft.itemID)
-

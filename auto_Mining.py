@@ -233,7 +233,8 @@ def mining():
     
     # MINING
     Journal.Clear()
-    while Player.Weight < Player.MaxWeight - 50:
+    Timer.Create("Mining", 10000)
+    while Player.Weight < Player.MaxWeight - 50 or Timer.Check("Mining"):
         
         if Journal.Search("There is no metal here to mine."):
             Misc.Pause(1000)
