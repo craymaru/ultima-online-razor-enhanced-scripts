@@ -25,20 +25,19 @@ def trushItems():
     item = promptTrushItem()
     trush_pouch = findTrushPouch()
     
-    while Items.FindByID(item.ItemID, item.Hue, item.Container):
-        item = Items.FindByID(item.ItemID, item.Hue, item.Container)
-        if item:
-            if item.ItemID in ignore_dic:
+    while Items.FindByID(item.ItemID, item.Hue, Player.Backpack.Serial):
+        del_item = Items.FindByID(item.ItemID, item.Hue, Player.Backpack.Serial)
+        if del_item:
+            if del_item.ItemID in ignore_dic:
                 Misc.SendMessage("This item type in ignore list!", 54)
                 break
-            
             Misc.SendMessage("DANGER: DO NOT DRAG ITEMS!", 33)
-            Items.Move(item, trush_pouch, -1)
-            Misc.Pause(500)
+            Items.Move(del_item, trush_pouch, -1)
+            Misc.Pause(550)
                 
         Misc.Pause(50)
     else:
-        Misc.SendMessage("All items of targeted type wiped!", 54)
+        Misc.SendMessage("All items of targeted type wiped!", 80)
 
 
 trushItems()

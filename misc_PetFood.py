@@ -80,7 +80,7 @@ class PetFood:
         while not self.ate:
             castCreateFood()
             feed()           
-            Misc.Pause(50)
+            Misc.Pause(100)
         else:
             cleanFoods()
         

@@ -75,7 +75,10 @@ def lumberjacking():
     Journal.Clear()
     
     Timer.Create("Lumberjacking", 8000)
-    while Player.Weight <= Player.MaxWeight and Timer.Check("Lumberjacking"):
+    while Player.Weight <= Player.MaxWeight :
+        
+        if not Timer.Check("Lumberjacking"):
+            break
         
         if Journal.Search("not enough"):
             break
@@ -115,26 +118,7 @@ def turnLogToBoard():
             Target.TargetExecute(item)
             Misc.Pause(500)
 
-            
-def storeItems(container_serial):
-    
-    if Player.Weight <= Player.MaxWeight - 200:
-        return
-    
-    recallAtlas(atlas_serial, bank_rune)
-    
-    Timer.Create("Store", 8000)
-    for store_item in store_items.keys():
-        while Items.FindByID(store_item, -1, Player.Backpack.Serial) and Timer.Check("Store"):
-            item = Items.FindByID(store_item, -1, Player.Backpack.Serial)
-            if item:
-                if not container_serial:
-                    Player.ChatSay(12, "bank")
-                    Misc.Pause(300)
-                    container_serial = Player.Bank
-                Items.Move(item, container_serial, 0)
-                Misc.Pause(550)
-
+                
 def recallAtlas(atlas_serial, rune):
     
     Items.UseItem(atlas_serial)
@@ -156,6 +140,32 @@ def recallAtlas(atlas_serial, rune):
     Gumps.SendAction(498, 4)
     
     Misc.Pause(3500)
+    
+            
+def storeItems(container_serial):
+    
+    if Player.Weight <= Player.MaxWeight - 200:
+        return
+    
+    recallAtlas(atlas_serial, bank_rune)
+    
+    Timer.Create("Store", 5000)
+    for store_item in store_items.keys():
+        while Items.FindByID(store_item, -1, Player.Backpack.Serial):
+            
+            if not Timer.Check("Store"):
+                break
+                
+            item = Items.FindByID(store_item, -1, Player.Backpack.Serial)
+            if item:
+                if not container_serial:
+                    Player.ChatSay(12, "bank")
+                    Misc.Pause(300)
+                    container_serial = Player.Bank
+                Items.Move(item, container_serial, 0)
+                Misc.Pause(550)
+    
+    Misc.Pause(750)
 
     
 

@@ -34,6 +34,7 @@ Mining = {
     "Stygian Lapis":{
         0x00017FAB: {
             "tags": { "account": 1, "slot": 2, "name": "Craymaru"},
+            "footing": False, # Digging underfoot in the mine
             "container_serial": 0x400CA97E,
             "mini_ore_organize_bag": 0x4002B142,
             "runic_atlas": 0x400E6EB7,
@@ -44,12 +45,24 @@ Mining = {
         },
         0x000088A2: {
             "tags": { "account": 5, "slot": 1, "name": "Cid"},
+            "footing": False, # Digging underfoot in the mine
             "container_serial": 0x400CA97E,
             "mini_ore_organize_bag": 0x4012E2FB,
             "runic_atlas": 0x400E6E91,
             "bank_rune": 47,
             "runes": range(0, 46),
             "pet_serial": 0x00014FA8,
+            "pet_food_habit": "meat"
+        },
+        0x0000940A: {
+            "tags": { "account": 7, "slot": 1, "name": "Raine"},
+            "footing": True, # Digging underfoot in the mine
+            "container_serial": 0x400CA97E,
+            "mini_ore_organize_bag": 0x401406ED,
+            "runic_atlas": 0x4017F7A6,
+            "bank_rune": 47,
+            "runes": range(0, 46),
+            "pet_serial": 0x00014FE3,
             "pet_food_habit": "meat"
         }
     }

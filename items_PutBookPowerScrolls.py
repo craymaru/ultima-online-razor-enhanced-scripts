@@ -19,7 +19,7 @@ def putPowerScrolls():
                     Misc.Pause(500)
                 Misc.Pause(50)
         
-        Misc.SendMessage("All scrolls have entered the book.", 90)
+        Misc.SendMessage("All scrolls have entered the book.", 80)
             
     else:
         Misc.SendMessage("This item is not the book.", 54)

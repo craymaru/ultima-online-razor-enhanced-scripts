@@ -2,8 +2,9 @@
 targets = []
 
 for i in range(1,3):
-    Misc.SendMessage("Target " + str(i), 54)
+    Player.HeadMessage(54, "Target " + str(i))
     targets.append(Target.PromptGroundTarget())
+    Player.HeadMessage(90, str(targets[i-1]))
 
 
 while True:

@@ -119,7 +119,11 @@ def hiding():
     # HIDING WHEN NOT HIDING
     if not Player.BuffsExist("Hiding") and 100 <= Player.GetSkillValue("Hiding"):
         Player.UseSkill("Hiding")
-
+        
+    if not Player.BuffsExist("Hiding") and not Player.BuffsExist("Invisibility"):
+        Spells.CastMagery("Invisibility")
+        Target.WaitForTarget(2000, False)
+        Target.Self()
 
 def castWraithForm():
     if not Player.BuffsExist("Wraith Form") and 30 <= Player.GetSkillValue("Necromancy"):
@@ -149,7 +153,9 @@ def scavengeGold(time):
             goToGold()
             Timer.Create("ScavengeTime", time)
 
-while True:
+
+            
+while not Player.IsGhost:
     
     castWraithForm()
     hiding()

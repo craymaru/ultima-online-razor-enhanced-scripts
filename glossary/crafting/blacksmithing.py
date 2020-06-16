@@ -332,7 +332,7 @@ blacksmithCraftables = {
     ),
 
 
-    ### Bladed: Gump Button 43 ###
+    ### Bladed: Gump Button 43 -> 22(Fixed) ###
     'broadsword': BlacksmithCraftable(
         name = 'broadsword',
         itemID = 0x0F5E,
@@ -340,7 +340,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 35.4,
         resourcesNeeded = { 'ingots': 10 },
-        gumpPath = ( GumpSelection( 949095101, 43 ), GumpSelection( 949095101, 2 ) )
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 2 ) )
     ),
     'cutlass': BlacksmithCraftable(
         name = 'cutlass',
@@ -358,7 +358,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 0.0,
         resourcesNeeded = { 'ingots': 3 },
-        gumpPath = ( GumpSelection( 949095101, 43 ), GumpSelection( 949095101, 16 ) )
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 30 ) ) # Fixed
     ),
     'katana': BlacksmithCraftable(
         name = 'katana',
@@ -367,7 +367,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 44.1,
         resourcesNeeded = { 'ingots': 8 },
-        gumpPath = ( GumpSelection( 949095101, 43 ), GumpSelection( 949095101, 23 ) )
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 23 ) )
     ),
     'kryss': BlacksmithCraftable(
         name = 'kryss',
@@ -376,7 +376,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 36.7,
         resourcesNeeded = { 'ingots': 8 },
-        gumpPath = ( GumpSelection( 949095101, 43 ), GumpSelection( 949095101, 30 ) )
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 30 ) )
     ),
     'longsword': BlacksmithCraftable(
         name = 'longsword',
@@ -385,7 +385,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 28.0,
         resourcesNeeded = { 'ingots': 12 },
-        gumpPath = ( GumpSelection( 949095101, 43 ), GumpSelection( 949095101, 37 ) )
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 37 ) )
     ),
     'scimitar': BlacksmithCraftable(
         name = 'scimitar',
@@ -394,7 +394,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 31.7,
         resourcesNeeded = { 'ingots': 10 },
-        gumpPath = ( GumpSelection( 949095101, 43 ), GumpSelection( 949095101, 44 ) )
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 44 ) )
     ),
     'viking sword': BlacksmithCraftable(
         name = 'viking sword',
@@ -403,7 +403,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 24.3,
         resourcesNeeded = { 'ingots': 14 },
-        gumpPath = ( GumpSelection( 949095101, 43 ), GumpSelection( 949095101, 51 ) )
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 51 ) )
     ),
 
 

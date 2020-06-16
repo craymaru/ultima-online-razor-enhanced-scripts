@@ -1,14 +1,13 @@
 from Scripts.glossary.crafting.blacksmithing import blacksmithTools, FindBlacksmithTool, blacksmithCraftables
 
-bracelet_id = 0x1086
 ingot_id = 0x1BF2
 gump_id = 949095101
 
 
 # itemToCraft = blacksmithCraftables["cutlass"]
 # itemToCraft = blacksmithCraftables["short spear"] #74-95
-itemToCraft = blacksmithCraftables["platemail gorget"]
-
+# itemToCraft = blacksmithCraftables["platemail gorget"]
+itemToCraft = blacksmithCraftables["dagger"]
 
 def useToolFirst(tool_gump):
     Gumps.WaitForGump(tool_gump, 2000)
@@ -31,9 +30,10 @@ def createItem(itemToCraft):
             Gumps.SendAction( path.gumpID, path.buttonID )
         if Gumps.CurrentGump() == path.gumpID and Gumps.LastGumpTextExist(itemToCraft.name):
             Gumps.SendAction( path.gumpID, path.buttonID )
-        
+    
 
-def clean(item_id):
+        
+def cleanItem(item_id):
     
     def getCleanupPouch():
         cleanup_pouch = Items.FindByID(0x09B0, 0x09c4, Player.Backpack.Serial)
@@ -47,18 +47,46 @@ def clean(item_id):
                 Timer.Create("MoveItem", 550)
         Misc.Pause(100)
         
+
+def extractItem(item_id):
+    Misc.Pause(1000)
+    while Items.FindByID(item_id, 0x0000, Player.Backpack.Serial):
+        item = Items.FindByID(item_id, 0x0000, Player.Backpack.Serial)
+        if item:
+            Player.UseSkill("Imbuing")
+            
+            Gumps.WaitForGump(1697188745, 1000)
+            if Gumps.CurrentGump() == 1697188745:
+                Gumps.SendAction(1697188745, 10010)
+            Misc.Pause(200)
+            Target.TargetExecute(item)
+            Gumps.WaitForGump(2381473795, 1000)
+            if Gumps.CurrentGump() == 2381473795:
+                Gumps.SendAction(2381473795, 1)
+            
+            Misc.Pause(1000)
         
-def getBankItem(item, less_amount, get_amount):
-    if Items.BackpackCount(item, 0x0000) < less_amount:
-        if not Player.Bank:
+        
+def getContainerItem(item_id, less_amount, get_amount, container=Player.Bank):
+    if Items.ContainerCount(Player.Backpack, item_id, 0x0000) < less_amount:
+        if not container:
             Player.ChatSay(80, "bank")
-        Misc.Pause(100)
-        item = Items.FindByID(item, 0x0000, Player.Bank.Serial)
-        Items.Move(item, Player.Backpack.Serial, get_amount)
-        Misc.Pause(550)
+            Misc.Pause(100)
+        item = Items.FindByID(item_id, 0x0000, container)
+        if item:
+            Items.Move(item, Player.Backpack, get_amount)
+            Misc.Pause(550)
 
 
+        
 while True:
-    getBankItem(ingot_id, 100, 400)
-    createItem(itemToCraft)
-    clean(itemToCraft.itemID)
+    # cleanItem(itemToCraft.itemID)
+    extractItem(itemToCraft.itemID)
+    getContainerItem(ingot_id, 100, 400, 0x400CA97E)
+    while Items.ContainerCount(Player.Backpack.Serial, itemToCraft.itemID, 0x0000) < 20:
+        createItem(itemToCraft)
+    else:
+        Gumps.WaitForGump(gump_id, 2000)
+        if Gumps.CurrentGump() == gump_id:
+            Gumps.SendAction(gump_id, 0)
+
