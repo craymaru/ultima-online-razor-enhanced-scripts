@@ -275,7 +275,7 @@ blacksmithCraftables = {
     ),
 
 
-    ### Shields: Gump Button 36 ###
+    ### Shields: Gump Button 36 -> 15(Fixed) ###
     'buckler': BlacksmithCraftable(
         name = 'buckler',
         itemID = 0x1B73,
@@ -283,7 +283,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 0.0,
         resourcesNeeded = { 'ingots': 10 },
-        gumpPath = ( GumpSelection( 949095101, 36 ), GumpSelection( 949095101, 2 ) )
+        gumpPath = ( GumpSelection( 949095101, 15 ), GumpSelection( 949095101, 2 ) )
     ),
     'bronze shield': BlacksmithCraftable(
         name = 'bronze shield',
@@ -292,7 +292,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 0.0,
         resourcesNeeded = { 'ingots': 12 },
-        gumpPath = ( GumpSelection( 949095101, 36 ), GumpSelection( 949095101, 9 ) )
+        gumpPath = ( GumpSelection( 949095101, 15 ), GumpSelection( 949095101, 9 ) )
     ),
     'heater shield': BlacksmithCraftable(
         name = 'heater shield',
@@ -301,7 +301,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 24.3,
         resourcesNeeded = { 'ingots': 18 },
-        gumpPath = ( GumpSelection( 949095101, 36 ), GumpSelection( 949095101, 16 ) )
+        gumpPath = ( GumpSelection( 949095101, 15 ), GumpSelection( 949095101, 16 ) ) # Fixed
     ),
     'metal shield': BlacksmithCraftable(
         name = 'metal shield',
@@ -310,7 +310,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 0.0,
         resourcesNeeded = { 'ingots': 14 },
-        gumpPath = ( GumpSelection( 949095101, 36 ), GumpSelection( 949095101, 23 ) )
+        gumpPath = ( GumpSelection( 949095101, 15 ), GumpSelection( 949095101, 23 ) )
     ),
     'metal kite shield': BlacksmithCraftable(
         name = 'metal kite shield',
@@ -319,7 +319,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 4.6,
         resourcesNeeded = { 'ingots': 16 },
-        gumpPath = ( GumpSelection( 949095101, 36 ), GumpSelection( 949095101, 30 ) )
+        gumpPath = ( GumpSelection( 949095101, 15 ), GumpSelection( 949095101, 30 ) )
     ),
     'tear kite shield': BlacksmithCraftable(
         name = 'tear kite shield',
@@ -328,7 +328,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 0.0,
         resourcesNeeded = { 'ingots': 8 },
-        gumpPath = ( GumpSelection( 949095101, 36 ), GumpSelection( 949095101, 37 ) )
+        gumpPath = ( GumpSelection( 949095101, 15 ), GumpSelection( 949095101, 37 ) )
     ),
 
 
@@ -499,7 +499,7 @@ blacksmithCraftables = {
         retainsColor = True,
         minSkill = 45.3,
         resourcesNeeded = { 'ingots': 6 },
-        gumpPath = ( GumpSelection( 949095101, 36 ), GumpSelection( 949095101, 44 ) ) # Fixed
+        gumpPath = ( GumpSelection( 949095101, 15 ), GumpSelection( 949095101, 44 ) ) # Fixed
     ),
     'spear': BlacksmithCraftable(
         name = 'spear',

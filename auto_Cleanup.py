@@ -69,9 +69,15 @@ def getBankItem(item, less_amount, get_amount):
         item = Items.FindByID(item, -1, Player.Bank.Serial)
         Items.Move(item, Player.Backpack.Serial, get_amount)
         Misc.Pause(550)
-
+        
+def hiding():
+    if not Player.BuffsExist("Hiding"):
+        if not Timer.Check("Skill"):
+            Player.UseSkill("Hiding")
+            Timer.Create("Skill", 10000)
 
 while True:
+    hiding()
     getBankItem(ingot_id, 100, 400)
     makeTool(2)
     makeBracelet()
