@@ -10,7 +10,7 @@ General = {
             "trush_pouch_serial": 0x4005DDD8
         },
         0x00017FAB: {
-            "tags": { "account": 1, "slot": 2, "name": "Craymaru"},
+            "tags": { "account": 2, "slot": 2, "name": "Craymaru"},
             "trush_pouch_serial": 0x4002FD51
         },
         0x00001F80: {
@@ -33,7 +33,7 @@ PetFood = {
 Mining = {
     "Stygian Lapis":{
         0x00017FAB: {
-            "tags": { "account": 1, "slot": 2, "name": "Craymaru"},
+            "tags": { "account": 2, "slot": 2, "name": "Craymaru"},
             "footing": False, # Digging underfoot in the mine
             "container_serial": 0x400CA97E,
             "mini_ore_organize_bag": 0x4002B142,

@@ -11,6 +11,7 @@ from Scripts.config import config
 
 # SETTINGS: Mining
 # ===============================
+footing = config.Mining[Misc.ShardName()][Player.Serial]["footing"]
 container_serial = config.Mining[Misc.ShardName()][Player.Serial]["container_serial"]
 mini_ore_organize_bag = config.Mining[Misc.ShardName()][Player.Serial]["mini_ore_organize_bag"]
 runic_atlas = config.Mining[Misc.ShardName()][Player.Serial]["runic_atlas"]
@@ -236,6 +237,10 @@ def mining():
     
     pickaxes = getPickaxes()
     
+    def getTile(x, y, map):
+        for tile in Statics.GetStaticsTileInfo(x, y, map):
+            return tile
+    
     # MINING
     Journal.Clear()
     Timer.Create("Mining", 10000)
@@ -248,10 +253,17 @@ def mining():
         for pickaxe in pickaxes:
             Items.UseItem(pickaxe)
             Misc.Pause(50)
-            x = Player.Position.X - 1
-            y = Player.Position.Y - 0
+            x = Player.Position.X
+            y = Player.Position.Y
             z = Player.Position.Z
-            Target.TargetExecute(x, y, z)
+            map = Player.Map
+            
+            
+            if footing:
+                tile = getTile(x, y, map)
+                Target.TargetExecute(x, y, z, tile.StaticID)
+            else:
+                Target.TargetExecute(x-1, y, z)
             
         Misc.Pause(1000)
         
