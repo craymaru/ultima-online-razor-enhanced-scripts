@@ -9,7 +9,8 @@ npc_serial = 0x00004AE4
 itemToCraft = blacksmithCraftables["heater shield"]
 itemToCraft.Hue = 0x0000
 
-
+SellAgent.Enable()
+BuyAgent.Enable()
 
 
 def useToolFirst(tool_gump):
@@ -42,7 +43,7 @@ def openBank():
     if Gumps.CurrentGump() == 1173999599:
         Gumps.SendAction(1173999599, 0)
     Misc.Pause(100)
-    
+openBank()
     
 def getContainerItem(item_id, less_amount, get_amount, container=Player.Bank.Serial):
     current_amount = Items.ContainerCount(Player.Backpack, item_id, 0x0000)
