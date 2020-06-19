@@ -90,3 +90,6 @@ while True:
         if Gumps.CurrentGump() == gump_id:
             Gumps.SendAction(gump_id, 0)
 
+
+Gumps.WaitForGump(949095101, 10000)
+Gumps.SendAction(949095101, 15)

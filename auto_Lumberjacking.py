@@ -121,6 +121,10 @@ def turnLogToBoard():
                 
 def recallAtlas(atlas_serial, rune):
     
+    if not Items.FindBySerial(atlas_serial):
+        Player.HeadMessage(33, "There is no Atlas Rune Book.")
+        Misc.ScriptStop("auto_Lumberjacking.py")
+    
     Items.UseItem(atlas_serial)
     
     # PAGENATION

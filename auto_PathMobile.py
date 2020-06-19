@@ -47,14 +47,28 @@ def loot():
             Player.HeadMessage(33, "LootTime!")
             Player.HeadMessage(33, str(looted))
             Misc.Pause(3000)
+
+            
+def resetPosition(x, y, duration):
+    enemyFilter = Mobiles.Filter()
+    enemyFilter.Enabled = True
+    enemyFilter.Bodies = List[int]([0x00F2,0x0024])
+    enemyFilter.RangeMax = 10
+    enemies = Mobiles.ApplyFilter(enemyFilter)
     
+    Player.HeadMessage(54, len(enemies))
+    
+    if not Timer.Check("ResetPos") and len(enemies) is 0:
+        Player.HeadMessage(80, "ResetPos!")
+        goPos(x, y)
+        Timer.Create("ResetPos", duration)
+    
+        
+        
 while True:
     
-    if not Timer.Check("ResetPos"):
-        Player.HeadMessage(80, "ResetPos!")
-        goPos(948, 434)
-        Timer.Create("ResetPos", 1000 * 30)
-        
+    resetPosition(948, 434, 1000 * 60)
+    
     enemy = findEnemy()
     if enemy:
         goPos(enemy.Position.X, enemy.Position.Y)

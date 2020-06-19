@@ -63,9 +63,6 @@ def clean():
         
 def getBankItem(item, less_amount, get_amount):
     if Items.BackpackCount(item, -1) < less_amount:
-        if not Player.Bank:
-            Player.ChatSay(80, "bank")
-        Misc.Pause(100)
         item = Items.FindByID(item, -1, Player.Bank.Serial)
         Items.Move(item, Player.Backpack.Serial, get_amount)
         Misc.Pause(550)
@@ -75,7 +72,8 @@ def hiding():
         if not Timer.Check("Skill"):
             Player.UseSkill("Hiding")
             Timer.Create("Skill", 10000)
-
+            
+Player.ChatSay(80, "bank")
 while True:
     hiding()
     getBankItem(ingot_id, 100, 400)

@@ -14,7 +14,7 @@ from Scripts.config import config
 footing = config.Mining[Misc.ShardName()][Player.Serial]["footing"]
 container_serial = config.Mining[Misc.ShardName()][Player.Serial]["container_serial"]
 mini_ore_organize_bag = config.Mining[Misc.ShardName()][Player.Serial]["mini_ore_organize_bag"]
-runic_atlas = config.Mining[Misc.ShardName()][Player.Serial]["runic_atlas"]
+runic_atlas_serial = config.Mining[Misc.ShardName()][Player.Serial]["runic_atlas_serial"]
 bank_rune = config.Mining[Misc.ShardName()][Player.Serial]["bank_rune"]
 runes = config.Mining[Misc.ShardName()][Player.Serial]["runes"]
 
@@ -131,8 +131,8 @@ def OrganizeToBank(container_serial):
     if Player.Weight < Player.MaxWeight * 0.35:
        return 
     
-    RecallWithAtlas(bank_rune)
-
+    RecallWithAtlas(runic_atlas_serial, bank_rune)
+    
     for bank_item in bank_items.keys():
         count = 0
         while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 10):
@@ -166,12 +166,16 @@ def OrganizeToBank(container_serial):
     Misc.Pause(1000)
 
 
-def RecallWithAtlas(rune):
-    # USE ATLAS
-    Target.Cancel()
-    Misc.Pause(50)
-    Items.UseItem(runic_atlas)
+def RecallWithAtlas(runic_atlas_serial, rune):
     
+    runic_atlas = Items.FindBySerial(runic_atlas_serial)
+    
+    if runic_atlas:
+        Items.UseItem(runic_atlas)
+    else:
+        Player.HeadMessage(33, "There is no Atlas Rune Book.")
+        Misc.ScriptStop("auto_Mining.py")
+
     # PAGENATE
     page = rune / 16
     for i in range(page):
@@ -268,22 +272,12 @@ def mining():
         Misc.Pause(1000)
         
     
-
-# ITEM_ID: Foods
-# ===============================
-foods = {
-    0x097B: {"name": "fish", "type": "etc"},
-    0x097D: {"name": "cheese", "type": "etc"},
-    0x09B7: {"name": "chicken", "type": "meat"},
-    0x09C0: {"name": "sausage", "type": "meat"},
-    0x09C9: {"name": "ham", "type": "meat"},
-    0x09D1: {"name": "grape", "type": "fruit"},
-    0x09D2: {"name": "peach", "type": "fruit"},
-    0x09D0: {"name": "apple", "type": "fruit"},
-    0x09EB: {"name": "muffins", "type": "etc"},
-    0x09F2: {"name": "ribs", "type": "meat"}
-}
-
+def callPetFood():
+    if not Timer.Check("PetFood"):
+        petfood(Misc, Player, Mobiles, Items, Spells, Timer)
+        Misc.Pause(1000)
+        Timer.Create("PetFood", 5 * 60 * 1000)
+        
 
 # RUN
 # ===============================
@@ -295,12 +289,8 @@ while True:
     
     for rune in runes:
         
-        if not Timer.Check("PetFood"):
-            petfood(Misc, Player, Mobiles, Items, Spells, Timer)
-            Misc.Pause(1000)
-            Timer.Create("PetFood", 5 * 60 * 1000)
-        
+        callPetFood()
         OrganizeToBank(container_serial)
-        RecallWithAtlas(rune)
+        RecallWithAtlas(runic_atlas_serial, rune)
         mining()
         melting(pet_serial)

@@ -16,5 +16,4 @@ def attack(filter):
         Player.Attack(enemy)
         Misc.Pause(200)
         
-while True:
-    attack(filter)
+attack(filter)
