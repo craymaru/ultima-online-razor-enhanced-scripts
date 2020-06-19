@@ -30,6 +30,8 @@ def createItem(itemToCraft):
     
     for path in itemToCraft.gumpPath:
         Gumps.WaitForGump( path.gumpID, 2000 )
+        if Gumps.CurrentGump() == path.gumpID and Gumps.LastGumpTextExist("You do not have sufficient"):
+            break
         if Gumps.CurrentGump() == path.gumpID and not Gumps.LastGumpTextExist(itemToCraft.name):
             Gumps.SendAction( path.gumpID, path.buttonID )
         if Gumps.CurrentGump() == path.gumpID and Gumps.LastGumpTextExist(itemToCraft.name):
@@ -37,9 +39,9 @@ def createItem(itemToCraft):
     
 
 def openBank():
-    Misc.WaitForContext(0x0000673F, 10000)
+    Misc.WaitForContext(0x0000673F, 1000)
     Misc.ContextReply(0x0000673F, 1)
-    Gumps.WaitForGump(1173999599, 10000)
+    Gumps.WaitForGump(1173999599, 1000)
     if Gumps.CurrentGump() == 1173999599:
         Gumps.SendAction(1173999599, 0)
     Misc.Pause(100)
@@ -73,31 +75,31 @@ def putItem(item_id, container=Player.Bank.Serial):
             Timer.Create("MoveItem", 550)
         
 def sellItem(npc_serial, item_id):
-    Misc.WaitForContext(npc_serial, 10000)
+    Misc.WaitForContext(npc_serial, 1000)
     Misc.ContextReply(npc_serial, 5)
-    Misc.Pause(100)
+    Misc.Pause(550)
 
     
 def buyItem(npc_serial, tong_id, less_amount):
     if Items.ContainerCount(Player.Backpack.Serial, tong_id, -1) <= less_amount: 
-        Misc.WaitForContext(npc_serial, 10000)
+        Misc.WaitForContext(npc_serial, 1000)
         Misc.ContextReply(npc_serial, 4)
-        Misc.Pause(100)
+        Misc.Pause(550)
 
 def hiding():
     if not Player.BuffsExist("Hiding"):
         if not Timer.Check("Skill"):
             Player.UseSkill("Hiding")
             Timer.Create("Skill", 10000)
-        
+
+
 while True:
-    hiding()
     sellItem(npc_serial, itemToCraft.itemID)
     buyItem(npc_serial, tong_id, 1)
     putItem(gold_id)
-    getContainerItem(ingot_id, 900, 1000)
-    
     while Player.Weight < Player.MaxWeight - 50:
+        hiding()
+        getContainerItem(ingot_id, 300, 500)
         createItem(itemToCraft)
     else:
         Gumps.WaitForGump(gump_id, 2000)
