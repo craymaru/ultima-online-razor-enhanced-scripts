@@ -51,6 +51,8 @@ Mining = {
             "runic_atlas_serial": 0x400E6EB7,
             "bank_rune": 47,
             "runes": range(0, 46),
+            "position_offset_x": -1,
+            "position_offset_y": 0,
             "pet_serial": 0x00018ABF,
             "pet_food_habit": "meat"
         },
@@ -62,7 +64,22 @@ Mining = {
             "runic_atlas_serial": 0x400E6E91,
             "bank_rune": 47,
             "runes": range(0, 46),
+            "position_offset_x": -1,
+            "position_offset_y": 0,
             "pet_serial": 0x00014FA8,
+            "pet_food_habit": "meat"
+        },
+        0x00009255: {
+            "tags": { "account": 6, "slot": 1, "name": "Rogan"},
+            "footing": False, # Digging underfoot in the mine
+            "container_serial": 0x400CA97E,
+            "mini_ore_organize_bag": 0x40063F5A,
+            "runic_atlas_serial": 0x40046B51,
+            "bank_rune": 0,
+            "runes": range(1, 47),
+            "position_offset_x": 0,
+            "position_offset_y": -1,
+            "pet_serial": 0x00014FD2,
             "pet_food_habit": "meat"
         },
         0x0000940A: {
@@ -73,6 +90,8 @@ Mining = {
             "runic_atlas_serial": 0x4017F7A6,
             "bank_rune": 47,
             "runes": range(0, 46),
+            "position_offset_x": -1,
+            "position_offset_y": 0,
             "pet_serial": 0x00014FE3,
             "pet_food_habit": "meat"
         }

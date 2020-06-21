@@ -20,8 +20,6 @@ def useToolFirst(tool_gump):
         item = FindBlacksmithTool( Player.Backpack )
         if item:
             Items.UseItem(item)
-        else:
-            end()
 
 
 def createItem(itemToCraft):
@@ -95,10 +93,10 @@ def hiding():
 
 while True:
     sellItem(npc_serial, itemToCraft.itemID)
-    buyItem(npc_serial, tong_id, 1)
     putItem(gold_id)
     while Player.Weight < Player.MaxWeight - 50:
         hiding()
+        buyItem(npc_serial, tong_id, 1)
         getContainerItem(ingot_id, 300, 500)
         createItem(itemToCraft)
     else:

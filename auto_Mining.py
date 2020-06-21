@@ -17,6 +17,8 @@ mini_ore_organize_bag = config.Mining[Misc.ShardName()][Player.Serial]["mini_ore
 runic_atlas_serial = config.Mining[Misc.ShardName()][Player.Serial]["runic_atlas_serial"]
 bank_rune = config.Mining[Misc.ShardName()][Player.Serial]["bank_rune"]
 runes = config.Mining[Misc.ShardName()][Player.Serial]["runes"]
+position_offset_x = config.Mining[Misc.ShardName()][Player.Serial]["position_offset_x"]
+position_offset_y = config.Mining[Misc.ShardName()][Player.Serial]["position_offset_y"]
 
 pet_serial = config.Mining[Misc.ShardName()][Player.Serial]["pet_serial"]
 pet_food_habit = config.Mining[Misc.ShardName()][Player.Serial]["pet_food_habit"]
@@ -180,19 +182,24 @@ def RecallWithAtlas(runic_atlas_serial, rune):
     page = rune / 16
     for i in range(page):
         Gumps.WaitForGump(498, 5000)
-        Gumps.SendAction(498, 1150)
+        if Gumps.CurrentGump() ==498:
+            Gumps.SendAction(498, 1150)
     
     # SELECT RUNE
     Misc.SendMessage("Rune: {page}-{rune}".format(page=page, rune=rune), colorful())
     rune_button = rune + 100
+    
     Gumps.WaitForGump(498, 5000)
-    Gumps.SendAction(498, rune_button)
+    if Gumps.CurrentGump() ==498:
+        Gumps.SendAction(498, rune_button)
     
     # RECALL
     Gumps.WaitForGump(498, 5000)
-    Gumps.SendAction(498, 4)
+    if Gumps.CurrentGump() ==498:
+        Gumps.SendAction(498, 4)
     
     Misc.Pause(2000)
+
 
 def melting(pet_serial):
     # MINI ORE INTO BAG
@@ -261,13 +268,12 @@ def mining():
             y = Player.Position.Y
             z = Player.Position.Z
             map = Player.Map
+            tile = getTile(x, y, map)
             
-            
-            if footing:
-                tile = getTile(x, y, map)
+            if footing and tile:
                 Target.TargetExecute(x, y, z, tile.StaticID)
             else:
-                Target.TargetExecute(x-1, y, z)
+                Target.TargetExecute(x + position_offset_x, y + position_offset_y, z)
             
         Misc.Pause(1000)
         
@@ -294,3 +300,13 @@ while True:
         RecallWithAtlas(runic_atlas_serial, rune)
         mining()
         melting(pet_serial)
+
+Items.UseItem(0x400E6EB7)
+Gumps.WaitForGump(498, 10000)
+Gumps.SendAction(498, 1150)
+Gumps.WaitForGump(498, 10000)
+Gumps.SendAction(498, 1150)
+Gumps.WaitForGump(498, 10000)
+Gumps.SendAction(498, 147)
+Gumps.WaitForGump(498, 10000)
+Gumps.SendAction(498, 4)
