@@ -130,7 +130,7 @@ colorful = ColorfulMassage()
 
 def OrganizeToBank(container_serial):
     
-    if Player.Weight < Player.MaxWeight * 0.35:
+    if Player.Weight < Player.MaxWeight * 0.45:
        return 
     
     RecallWithAtlas(runic_atlas_serial, bank_rune)
@@ -300,13 +300,3 @@ while True:
         RecallWithAtlas(runic_atlas_serial, rune)
         mining()
         melting(pet_serial)
-
-Items.UseItem(0x400E6EB7)
-Gumps.WaitForGump(498, 10000)
-Gumps.SendAction(498, 1150)
-Gumps.WaitForGump(498, 10000)
-Gumps.SendAction(498, 1150)
-Gumps.WaitForGump(498, 10000)
-Gumps.SendAction(498, 147)
-Gumps.WaitForGump(498, 10000)
-Gumps.SendAction(498, 4)

@@ -37,10 +37,19 @@ def GetItemAmount(item_id, item_hue, container_serial):
     Misc.SendMessage(" >> " + str(contains_amount), 60)
     if contains_amount == 0:
         error
-    
-# RUN
+
+        
+def hiding():
+    if not Player.BuffsExist("Hiding"):
+        if not Timer.Check("Skill"):
+            Player.UseSkill("Hiding")
+            Timer.Create("Skill", 10000)        
+        
 Player.ChatSay(12, "bank")
+
+
 while True:
+    hiding()
     ItemToBank(gold_id, 0)
     GetItemFromBank(board_id, 475)
     VenderSell(board_id)

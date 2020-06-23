@@ -1,4 +1,6 @@
-bulkgacha_button_number = 2
+import re
+
+bulkgacha_button_number = 4
 
 bulkgacha_serial = 0x40016844
 bulkgacha_gump = 668631410
@@ -6,7 +8,7 @@ bulkgacha_gump = 668631410
 bulk_id = 0x2258
 book_id = 0x2259
 
-Misc.SendMessage("Bulk Orders Book CONTAINER?", 54)
+Misc.SendMessage("Bulk Orders Books CONTAINER?", 54)
 container_serial = Target.PromptTarget()
 Misc.SendMessage(container_serial, 80)
  
@@ -16,7 +18,7 @@ Misc.SendMessage(container_serial, 80)
 
 
 
-def withdrawGold(lessThan=200, amount=5000):
+def withdrawGold(lessThan=200, amount=20000):
     if Player.Gold <= lessThan:
         Player.ChatSay(33, "withdraw %i" % amount)
         Misc.Pause(200)
@@ -41,14 +43,6 @@ def getBook():
     if container.IsContainer:
         book = Items.FindByID(book_id, 0x0000, container_serial)
         if book:
-            for prop in book.Properties:
-                if "Deeds in book: 500" in str(prop):
-                    while Timer.Check("MoveItem"):
-                        Misc.Pause(100)
-                    Items.Move(book, finished_container_serial, 1)
-                    Timer.Create("MoveItem", 650)
-                    Misc.Pause(200)
-                    getBook()
             return book
                     
         else:
@@ -57,26 +51,46 @@ def getBook():
     else:
         Misc.SendMessage("This is not a container.", 33)
         end()
-        
+
+def evalBook(book):
+    for prop in book.Properties:
+        match = re.search("^Deeds in book: (\d+)$", str(prop))
+        if match:
+            Misc.SendMessage(match.groups()[0] + "/500", 80)
+            space = 500 - int(match.groups()[0])
+            if not space:
+                Items.Move(book, finished_container_serial, 1)
+                Misc.Pause(550)
+            return space
+            
 
 def putBulk():
 
     while Items.FindByID(bulk_id, -1, Player.Backpack.Serial):
         book = getBook()
+        evalBook(book)
         bulk = Items.FindByID(bulk_id, -1, Player.Backpack.Serial)
-        if bulk:
-            while Timer.Check("MoveItem"):
-                Misc.Pause(10)
+        if bulk and book:
             Items.Move(bulk, book, 1)
-            Timer.Create("MoveItem", 250)
-
+            Misc.Pause(610)
+            
+    Gumps.WaitForGump(1425364447, 10000)
+    if Gumps.CurrentGump() == 1425364447:
+        Gumps.SendAction(1425364447, 0)
 
         
 while True:
-    buyBulkDeed(bulkgacha_button_number)
     putBulk()
     
-
-
-
+    book = getBook()
+    if not book:
+        break
+    
+    space = evalBook(book)
+    if 50 <= space:
+        space = 50
+    
+    for i in range(space):
+        buyBulkDeed(bulkgacha_button_number)
+    
 

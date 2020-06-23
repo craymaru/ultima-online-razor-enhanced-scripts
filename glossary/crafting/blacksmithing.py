@@ -405,6 +405,15 @@ blacksmithCraftables = {
         resourcesNeeded = { 'ingots': 14 },
         gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 51 ) )
     ),
+    'no-dachi': BlacksmithCraftable(
+        name = 'no-dachi',
+        itemID = 0x27A2,
+        retainsMark = True,
+        retainsColor = True,
+        minSkill = 75.0,
+        resourcesNeeded = { 'ingots': 18 },
+        gumpPath = ( GumpSelection( 949095101, 22 ), GumpSelection( 949095101, 72 ) ) # Added
+    ),
 
 
     ### Axes: Gump Button 50 ###

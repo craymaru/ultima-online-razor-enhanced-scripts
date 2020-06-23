@@ -6,8 +6,9 @@ gump_id = 949095101
 
 # itemToCraft = blacksmithCraftables["cutlass"]
 # itemToCraft = blacksmithCraftables["short spear"] #74-95
+# itemToCraft = blacksmithCraftables["dagger"]
 # itemToCraft = blacksmithCraftables["platemail gorget"]
-itemToCraft = blacksmithCraftables["dagger"]
+itemToCraft = blacksmithCraftables["no-dachi"]
 
 def useToolFirst(tool_gump):
     Gumps.WaitForGump(tool_gump, 2000)
@@ -80,16 +81,8 @@ def getContainerItem(item_id, less_amount, get_amount, container=Player.Bank):
 
         
 while True:
-    # cleanItem(itemToCraft.itemID)
-    extractItem(itemToCraft.itemID)
+    cleanItem(itemToCraft.itemID)
+    # extractItem(itemToCraft.itemID)
     getContainerItem(ingot_id, 100, 400, 0x400CA97E)
-    while Items.ContainerCount(Player.Backpack.Serial, itemToCraft.itemID, 0x0000) < 20:
-        createItem(itemToCraft)
-    else:
-        Gumps.WaitForGump(gump_id, 2000)
-        if Gumps.CurrentGump() == gump_id:
-            Gumps.SendAction(gump_id, 0)
+    createItem(itemToCraft)
 
-
-Gumps.WaitForGump(949095101, 10000)
-Gumps.SendAction(949095101, 15)
