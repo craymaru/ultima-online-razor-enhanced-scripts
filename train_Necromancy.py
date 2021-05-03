@@ -1,20 +1,38 @@
-def IsSkillValue():
-    global skill_value
-    skill_value = Player.GetSkillValue("Necromancy")
-    text = "Necromancy " + str(skill_value)
-    Misc.SendMessage(text, 10)
+def getSkillValue():
+    value = round(Player.GetSkillValue("Necromancy"), 2)
+    Misc.SendMessage("Necromancy " + str(value), 10)
+    return value
+
+
+def heal():
+    if Player.Hits < (Player.HitsMax * 0.85):
+        while Player.Hits < (Player.HitsMax * 0.95):
+            Spells.CastMagery("Greater Heal")
+            Target.WaitForTarget(3000, False)
+            Target.Self()
+            Misc.Pause(1000)
+
+def spin():
+    for d in ["South", "Left", "West", "Up", "North", "Right", "East", "Down"]:
+        Player.Walk(d)
+
 
 def Meditation():
     if Player.Mana < (Player.ManaMax * 0.65):
         while Player.Mana < (Player.ManaMax * 0.90):
-            if not Player.BuffsExist("Meditation"):
-                success_rate = ((Player.GetSkillValue("Meditation") / 200) + (Player.Mana / Player.ManaMax)) * 100
-                Misc.SendMessage("Success Rate: %s" % success_rate, 40)
-                Player.UseSkill("Meditation")
-                Misc.Pause(10000)
-            Misc.Pause(50)
+            spin()
+            Spells.CastNecro("Poison Strike")
+            Target.WaitForTarget(3000, False)
+            Target.Self()
+#            if not Player.BuffsExist("Meditation"):
+#                success_rate = ((Player.GetSkillValue("Meditation") / 200) + (Player.Mana / Player.ManaMax)) * 100
+#                Misc.SendMessage("Success Rate: %s" % success_rate, 40)
+#                Player.UseSkill("Meditation")
+#                Misc.Pause(10000)
+#            Misc.Pause(50)
 
-def TrainNecromancy():
+
+def trainNecromancy(skill_value):
     # NECROMANCY
     if (Player.ManaMax * 0.6) < Player.Mana:
         
@@ -26,7 +44,7 @@ def TrainNecromancy():
         # LICH FORM
         elif 70.0 <= skill_value:
             Spells.CastNecro("Lich Form")
-            Misc.Pause(3000)
+            Misc.Pause(1000 - int(Player.FasterCasting * 0.25))
         
         # POISON STRIKE
         elif 60.0 <= skill_value:
@@ -53,10 +71,10 @@ def TrainNecromancy():
             Spells.CastNecro("Curse Weapon")
             Misc.Pause(1000)
             
-        Misc.Pause(50)
+        Misc.Pause(10)
 
 # RUN
 while True:
-    IsSkillValue()
+    #heal()
     Meditation()
-    TrainNecromancy()
+    trainNecromancy(getSkillValue())

@@ -1,23 +1,29 @@
-def IsSkillValue():
-    global skill_value
-    skill_value = Player.GetSkillValue("Magery")
-    text = "Magery: " + str(skill_value)
-    Misc.SendMessage(text)
+def getSkillValue():
+    value = round(Player.GetSkillValue("Magery"), 2)
+    Misc.SendMessage("Magery: " + str(value), 55)
+    return value
 
-def Meditation():
+
+def spin():
+    for d in ["South", "Left", "West", "Up", "North", "Right", "East", "Down"]:
+        Player.Walk(d)
+    
+    
+def meditation():
     if Player.Mana < (Player.ManaMax * 0.65):
         while Player.Mana < (Player.ManaMax * 0.90):
-            if not Player.BuffsExist("Meditation"):
-                Player.UseSkill("Meditation")
-                Misc.Pause(10000)
-            Misc.Pause(50)
+            spin()
+#            if not Player.BuffsExist("Meditation"):
+#                Player.UseSkill("Meditation")
+#                Misc.Pause(10000)
+#            Misc.Pause(50)
 
-def TrainMagery():
+def trainMagery(skill_value):
     
     # 8th EARTHQUAKE
     if 80.1 <= skill_value:
         Spells.CastMagery("Earthquake")
-        Misc.Pause(3000)
+        Misc.Pause(3000 - Player.FasterCasting * 250)
     # 7th MANA VAMPIRE
     elif 65.8 <= skill_value:
         Spells.CastMagery("Mana Vampire")
@@ -53,6 +59,5 @@ def TrainMagery():
 
 
 while True:
-    IsSkillValue()
-    Meditation()
-    TrainMagery()
+    meditation()
+    trainMagery(getSkillValue())
