@@ -28,7 +28,7 @@ def honorNearest():
     if not Player.BuffsExist('Honored'):
         honfil = Mobiles.Filter()
         honfil.Enabled = True
-        honfil.RangeMax = 8
+        honfil.RangeMax = 12
         honfil.Notorieties = List[Byte](bytes([3,4,5,6]))
         enemies = Mobiles.ApplyFilter(honfil)
         Misc.Pause(200)

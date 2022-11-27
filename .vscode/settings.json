@@ -1,0 +1,30 @@
+{
+  "python.pythonPath": "C:/Users/Cray/.pyenv/pyenv-win/versions/3.10.7/python.exe",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.autoComplete.extraPaths": [
+    // "C:/lib/ironpython-stubs/release/",
+    "C:/lib/ironpython-stubs/release/stubs.min",
+    "C:/Game Tools/UO/RazorEnhanced/Config",
+    "C:/Game Tools/UO/RazorEnhanced/Scripts",
+    "./Scripts"
+  ],
+  "python.analysis.extraPaths": [
+    // ":/lib/ironpython-stubs/release",
+    "C:/lib/ironpython-stubs/release/stubs.min",
+    "C:/Game Tools/UO/RazorEnhanced/Config",
+    "C:/Game Tools/UO/RazorEnhanced/Scripts",
+    "./Scripts"
+  ],
+  // "python.analysis.include": [
+  //   "C:/Game Tools/UO/RazorEnhanced/Config",
+  //   "C:/lib/ironpython-stubs",
+  // ],
+  // "python.analysis.typeshedPaths": [
+  //   "C:/lib/ironpython-stubs",
+  //   "C:/Game Tools/UO/RazorEnhanced/Config",
+  // ],
+  // "python.analysis.stubPath": "C:/lib/ironpython-stubs",
+  "python.languageServer": "Pylance",
+  "python.analysis.inlayHints.functionReturnTypes": true,
+  "python.analysis.inlayHints.variableTypes": true,
+}

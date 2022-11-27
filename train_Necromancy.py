@@ -20,19 +20,19 @@ def spin():
 def Meditation():
     if Player.Mana < (Player.ManaMax * 0.65):
         while Player.Mana < (Player.ManaMax * 0.90):
-            spin()
+            #spin()
             Spells.CastNecro("Poison Strike")
             Target.WaitForTarget(3000, False)
             Target.Self()
-#            if not Player.BuffsExist("Meditation"):
-#                success_rate = ((Player.GetSkillValue("Meditation") / 200) + (Player.Mana / Player.ManaMax)) * 100
-#                Misc.SendMessage("Success Rate: %s" % success_rate, 40)
-#                Player.UseSkill("Meditation")
-#                Misc.Pause(10000)
-#            Misc.Pause(50)
+            if not Player.BuffsExist("Meditation"):
+                success_rate = ((Player.GetSkillValue("Meditation") / 200) + (Player.Mana / Player.ManaMax)) * 100
+                Misc.SendMessage("Success Rate: %s" % success_rate, 40)
+                Player.UseSkill("Meditation")
+                Misc.Pause(10000)
+            Misc.Pause(50)
 
 
-def trainNecromancy(skill_value):
+def CastSpell(skill_value):
     # NECROMANCY
     if (Player.ManaMax * 0.6) < Player.Mana:
         
@@ -73,8 +73,8 @@ def trainNecromancy(skill_value):
             
         Misc.Pause(10)
 
-# RUN
+
 while True:
-    #heal()
     Meditation()
-    trainNecromancy(getSkillValue())
+    CastSpell(getSkillValue())
+    Misc.Pause(100)

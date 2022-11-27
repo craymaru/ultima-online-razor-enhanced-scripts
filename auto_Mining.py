@@ -1,302 +1,230 @@
-"""
-Auto Mining Version4
-Author: Cray
-"""
+# *-------------------------------*
+#
+#   Auto Mining v2
+#
+#   Created by Cray, MIT License.
+#
+# *-------------------------------*
 
+
+### READ ME ######################
+
+# 1. Agents > Organizer: Create list name "mining" then add ores.
+# 2. Agents > Restock: Create list name "mining" then add shovels and irons.
+# 3. Setting in the "Configuration" section below.
+# 4. Save and Run!
+
+
+# Configuration
+
+# Tools
 from System.Collections.Generic import List
+MakeTools = True  # Need tinker skill and irons in restock container.
 
-from Scripts import misc_PetFood as pt
-from Scripts.config import config
+# Recalls
+MiningRuneBookSerial = 0x4002EA47
+MiningRunes = [2, 3, 4, 5, 6, 7, 8, 9, 10]
 
+HomeRuneBookSerial = 0x4002EA47
+HomeRune = 1
 
-# SETTINGS: Mining
-# ===============================
-footing = config.Mining[Misc.ShardName()][Player.Serial]["footing"]
-container_serial = config.Mining[Misc.ShardName()][Player.Serial]["container_serial"]
-mini_ore_organize_bag = config.Mining[Misc.ShardName()][Player.Serial]["mini_ore_organize_bag"]
-runic_atlas_serial = config.Mining[Misc.ShardName()][Player.Serial]["runic_atlas_serial"]
-bank_rune = config.Mining[Misc.ShardName()][Player.Serial]["bank_rune"]
-runes = config.Mining[Misc.ShardName()][Player.Serial]["runes"]
-position_offset_x = config.Mining[Misc.ShardName()][Player.Serial]["position_offset_x"]
-position_offset_y = config.Mining[Misc.ShardName()][Player.Serial]["position_offset_y"]
+RecallDelay = 3000
+UseSecretJorney = False
 
-pet_serial = config.Mining[Misc.ShardName()][Player.Serial]["pet_serial"]
-pet_food_habit = config.Mining[Misc.ShardName()][Player.Serial]["pet_food_habit"]
-petfood = pt.PetFood(pet_serial, pet_food_habit)
+# Containers
+OrganizeContainerSerial = 0x4002CEE4
+OrganizeDelay = 2000
 
+RestockContainerSerial = 0x4002CEED
 
-# ITEM_ID
-# ===============================
-mini_ore = 0x19b7
-ores = {
-    0x19b8: "small ore",
-    0x19b9: "midium ore",
-    0x19ba: "large ore"
-}
-ore_colors = {
-    0x0000: "Iron",
-    0x0973: "Dull Copper",
-    0x0966: "Shadow",
-    0x096d: "Copper",
-    0x0972: "Bronze",
-    0x08a5: "Golden",
-    0x0979: "Agapite",
-    0x089f: "Verite",
-    0x08ab: "Valorite"
-}
-bank_items = {
-    0x1779: "High Quality Granite",
-    0x1BF2: "Ingot",
-    0x0F0F: "Star Sapphire",
-    0x0F10: "Emerald",
-    0x0F11: "Sapphire",
-    0x0F13: "Ruby",
-    0x0F15: "Citrine",
-    0x0F16: "Amethyst",
-    0x0F18: "Tourmaline",
-    0x0F25: "Amber",
-    0x0F26: "Diamond",
-    0x3192: "Dark Sapphire",
-    0x3193: "Turquoise",
-    0x3194: "Perfect Emerald",
-    0x3195: "Ecru Citrine",
-    0x3197: "Fire Ruby",
-    0x3198: "Blue Diamond",
-    0x0F28: "A Small Piece of Blackrock",
-    0x5732: "crystalline blackrock",
-}
+# Digging
+OffsetX = -1
+OffsetY = 0
+OffsetZ = 0
+MaxDigCount = 10
+DigGround = False
+Tools = [
+    0x0F39,  # shovel
+    0x0E86,  # pickaxe
+]
 
-item_dic = {
-    0x1779: {
-        0x0000: {"name": "Iron Granite", "amount": 0},
-        0x0973: {"name": "Dull Copper Granite", "amount": 0},
-        0x0966: {"name": "Shadow Granite", "amount": 0},
-        0x096d: {"name": "Copper Granite", "amount": 0},
-        0x0972: {"name": "Bronze Granite", "amount": 0},
-        0x08a5: {"name": "Golden Granite", "amount": 0},
-        0x0979: {"name": "Agapite Granite", "amount": 0},
-        0x089f: {"name": "Verite Granite", "amount": 0},
-        0x08ab: {"name": "Valorite Granite", "amount": 0}
-    },
-    0x1BF2: {
-        0x0000: {"name": "Iron Ingot", "amount": 0},
-        0x0973: {"name": "Dull Copper Ingot", "amount": 0},
-        0x0966: {"name": "Shadow Ingot", "amount": 0},
-        0x096d: {"name": "Copper Ingot", "amount": 0},
-        0x0972: {"name": "Bronze Ingot", "amount": 0},
-        0x08a5: {"name": "Golden Ingot", "amount": 0},
-        0x0979: {"name": "Agapite Ingot", "amount": 0},
-        0x089f: {"name": "Verite Ingot", "amount": 0},
-        0x08ab: {"name": "Valorite Ingot", "amount": 0}
-    },
-    0x0F0F: {0x0000: {"name": "Star Sapphire", "amount": 0}},
-    0x0F10: {0x0000: {"name": "Emerald", "amount": 0}},
-    0x0F11: {0x0000: {"name": "Sapphire", "amount": 0}},
-    0x0F13: {0x0000: {"name": "Ruby", "amount": 0}},
-    0x0F15: {0x0000: {"name": "Citrine", "amount": 0}},
-    0x0F16: {0x0000: {"name": "Amethyst", "amount": 0}},
-    0x0F18: {0x0000: {"name": "Tourmaline", "amount": 0}},
-    0x0F25: {0x0000: {"name": "Amber", "amount": 0}},
-    0x0F26: {0x0000: {"name": "Diamond", "amount": 0}},
-    0x3192: {0x0000: {"name": "Dark Sapphire", "amount": 0}},
-    0x3193: {0x0000: {"name": "Turquoise", "amount": 0}},
-    0x3194: {0x0000: {"name": "Perfect Emerald", "amount": 0}},
-    0x3195: {0x0000: {"name": "Ecru Citrine", "amount": 0}},
-    0x3197: {0x0000: {"name": "Fire Ruby", "amount": 0}},
-    0x3198: {0x0000: {"name": "Blue Diamond", "amount": 0}},
-    0x0F28: {0x0497: {"name": "A Small Piece of Blackrock", "amount": 0}},
-    0x5732: {0x0000: {"name": "Crystalline Blackrock", "amount": 0}}
-}
+##################################
 
 
+# Lazyload
+Player.HeadMessage(51, "Loading...")
+Misc.Pause(1000)
+for i in range(3, 0, -1):
+    Player.HeadMessage(51, i)
+    Misc.Pause(1000)
+Player.HeadMessage(63, "Start Mining!")
+
+RuneBookGumpId = 89
+LogColor = 55
+MiningRuneBook = Items.FindBySerial(MiningRuneBookSerial)
+HomeRuneBook = Items.FindBySerial(HomeRuneBookSerial)
+ToolKitId = 0x1EB8
+ShovelId = 0x0F39
+ShovelBtn = 72
+Shovels = 10
+ToolKitBtn = 23
+MultiSwing = True
+GumpId = 2066278152
 
 
+def organize():
+    Misc.SendMessage("Organize", LogColor)
 
-# DEFINES
-# ===============================
-
-class ColorfulMassage:
-    def __init__(self):
-        self.cc = 0
-        
-    def __call__(self):
-        if self.cc < 1910 or 1920 < self.cc:
-            self.cc = 1910
-        self.cc += 1
-        return self.cc
-        
-colorful = ColorfulMassage()
+    Organizer.RunOnce("mining", Player.Backpack.Serial, OrganizeContainerSerial, 200)
+    Misc.Pause(OrganizeDelay)
 
 
-def OrganizeToBank(container_serial):
-    
-    if Player.Weight < Player.MaxWeight * 0.45:
-       return 
-    
-    RecallWithAtlas(runic_atlas_serial, bank_rune)
-    
-    for bank_item in bank_items.keys():
-        count = 0
-        while Items.FindByID(bank_item, -1, Player.Backpack.Serial) and (count < 10):
-            
-            item = Items.FindByID(bank_item, -1, Player.Backpack.Serial)
-            if item:
-                if item.ItemID == 0x1BF2:
-                    ingot_color = ore_colors[item.Hue] + " "
-                else:
-                    ingot_color = ""
-                    Misc.SendMessage("Item: %s%s %s" % (ingot_color, bank_items[bank_item], item.Amount), colorful())
-                item_dic[item.ItemID][item.Hue]["amount"] += item.Amount
-                
-                if not container_serial:
-                    container_serial = Player.Bank.Serial
-                    Player.ChatSay(48, "bank")
-                    Misc.Pause(200)
-                Items.Move(item, container_serial, 0)
-                Misc.Pause(550)
-            count += 1
-    
+def restock():
+    Misc.SendMessage("Restock", LogColor)
 
-    # RESULT
-    Misc.SendMessage(">>> RESULT", 1150)
-    Misc.SendMessage("==============", 1150)
-    for items in item_dic.values():
-        for item in items.values():
-            if 1 <= item["amount"]:
-                Misc.SendMessage("[" + str(item["amount"]) + "] " + item["name"], colorful())
-    Misc.SendMessage(" ", 1150)
+    Restock.RunOnce("mining", RestockContainerSerial,
+                    Player.Backpack.Serial, 200)
     Misc.Pause(1000)
 
 
-def RecallWithAtlas(runic_atlas_serial, rune):
-    
-    runic_atlas = Items.FindBySerial(runic_atlas_serial)
-    
-    if runic_atlas:
-        Items.UseItem(runic_atlas)
-    else:
-        Player.HeadMessage(33, "There is no Atlas Rune Book.")
-        Misc.ScriptStop("auto_Mining.py")
-
-    # PAGENATE
-    page = rune / 16
-    for i in range(page):
-        Gumps.WaitForGump(498, 5000)
-        if Gumps.CurrentGump() ==498:
-            Gumps.SendAction(498, 1150)
-    
-    # SELECT RUNE
-    Misc.SendMessage("Rune: {page}-{rune}".format(page=page, rune=rune), colorful())
-    rune_button = rune + 100
-    
-    Gumps.WaitForGump(498, 5000)
-    if Gumps.CurrentGump() ==498:
-        Gumps.SendAction(498, rune_button)
-    
-    # RECALL
-    Gumps.WaitForGump(498, 5000)
-    if Gumps.CurrentGump() ==498:
-        Gumps.SendAction(498, 4)
-    
-    Misc.Pause(2000)
+def getPos():
+    return Player.Position.X, Player.Position.Y, Player.Position.Z
 
 
-def melting(pet_serial):
-    # MINI ORE INTO BAG
-    while Items.FindByID(mini_ore, -1, Player.Backpack.Serial):
-        item = Items.FindByID(mini_ore, -1, Player.Backpack.Serial)
-        if item:
-            Items.Move(item, mini_ore_organize_bag, 0)
-            Misc.Pause(1000)
-    
-    def melt(item, pet_serial):
-        Items.UseItem(item)
-        Misc.Pause(200)
-        Target.TargetExecute(pet_serial)
-        Misc.Pause(100)
-
-        
-    # MELT MINI ORE
-    for ore_color in ore_colors.keys():
-        item = Items.FindByID(mini_ore, ore_color, mini_ore_organize_bag)
-        if item:
-            if 1 < item.Amount:
-                melt(item, pet_serial)
-    # MELT ORE 
-    for ore in ores:
-        while Items.FindByID(ore, -1, Player.Backpack.Serial):
-            item = Items.FindByID(ore, -1, Player.Backpack.Serial)
-            if item:
-                melt(item, pet_serial)
-
-
-def getPickaxes():
-    pickaxe_filter = Items.Filter()
-    pickaxe_filter.Enabled
-    pickaxe_filter.Graphics = List[int]([0x0E86])
-    pickaxe_filter.Movable = True
-    pickaxe_filter.OnGround = False
-    pickaxes = Items.ApplyFilter(pickaxe_filter)
-    return pickaxes
-
-
-                
-def mining():
-
-    Misc.SendMessage("MINING", colorful())
-    Misc.SendMessage("==============", 1150)
-    
-    pickaxes = getPickaxes()
-    
-    def getTile(x, y, map):
-        for tile in Statics.GetStaticsTileInfo(x, y, map):
-            return tile
-    
-    # MINING
-    Journal.Clear()
-    Timer.Create("Mining", 10000)
-    while Player.Weight < Player.MaxWeight - 100 and Timer.Check("Mining"):
-        
-        if Journal.Search("There is no metal here to mine."):
-            Misc.Pause(1000)
+def sustainCreatbles(itemId, button, num):
+    while True:
+        if Gumps.LastGumpTextExist("You do not have sufficient metal to make that."):
+            end()
+        items = Items.FindAllByID(itemId, -1, Player.Backpack.Serial, 0)
+        if num <= len(items):
             break
-        
-        for pickaxe in pickaxes:
-            Items.UseItem(pickaxe)
-            Misc.Pause(50)
-            x = Player.Position.X
-            y = Player.Position.Y
-            z = Player.Position.Z
-            map = Player.Map
-            tile = getTile(x, y, map)
-            
-            if footing and tile:
-                Target.TargetExecute(x, y, z, tile.StaticID)
+        if not Gumps.CurrentGump() == GumpId:
+            Items.UseItem(Items.FindByID(
+                ToolKitId, -1, Player.Backpack.Serial))
+            Misc.Pause(1000)
+        Gumps.WaitForGump(GumpId, 3000)
+        Gumps.SendAction(GumpId, 15)  # Tool Category
+        Gumps.WaitForGump(GumpId, 3000)
+        Gumps.SendAction(GumpId, button)
+        Misc.Pause(2000)
+    Misc.Pause(2000)
+    Gumps.CloseGump(GumpId)
+
+
+def makeTinkerTools():
+    Misc.SendMessage("Make tinker tool", 55)
+    sustainCreatbles(ToolKitId, ToolKitBtn, 2)
+
+
+def makeShovels():
+    Misc.SendMessage("Make tool", 55)
+    sustainCreatbles(ShovelId, ShovelBtn, Shovels)
+
+
+def recall(runebook, rune, isJorney=False, disableLog=False):
+    if not disableLog:
+        Misc.SendMessage("Rune: {rune}".format(rune=rune), LogColor)
+
+    if rune < 1 or 16 < rune:
+        Misc.SendMessage("Invalid rune number!")
+        return
+
+    button = min(max(1, rune), 16)
+
+    if isJorney:
+        button += 74  # SecretJourney 75-90
+    else:
+        button += 49  # Recall 50-65
+
+    beforePos = getPos()
+
+    Journal.Clear()
+    while True:
+        Gumps.SendAction(89, 0)  # Close Runebook
+        Misc.Pause(100)
+        Items.UseItem(runebook)
+        Gumps.WaitForGump(RuneBookGumpId, 1000)
+        Gumps.SendAction(RuneBookGumpId, button)
+        Misc.Pause(RecallDelay)
+
+        if beforePos != getPos():
+            break
+        if Journal.Search("Something is blocking the location."):
+            break
+
+
+def goHome():
+    Misc.SendMessage("Home", LogColor)
+    recall(HomeRuneBook, HomeRune, disableLog=True)
+
+
+def goMiningPoint(rune):
+    recall(MiningRuneBook, rune)
+
+
+def getFirstTile(x, y, map):
+    for tile in Statics.GetStaticsTileInfo(x, y, map):
+        return tile
+
+
+def getTools():
+    return Items.FindAllByID(Tools, -1, Player.Backpack.Serial, 0)
+
+
+def mining():
+    Misc.SendMessage("Mining", LogColor)
+
+    Journal.Clear()
+
+    digCount = MaxDigCount
+    while Player.Weight < Player.MaxWeight - 150 and 0 < digCount:
+
+        if Journal.Search("There is no metal here to mine."):
+            break
+
+        if Journal.Search("You have worn out your tool!"):
+            break
+
+        tools = getTools()
+
+        if not tools:
+            Player.HeadMessage(38, "Oops, I have no tools!")
+            goHome()
+            end()
+
+        Player.HeadMessage(60, "*dig*")
+
+        for tool in tools:
+            Items.UseItem(tool)
+            Misc.Pause(100)
+
+            x, y, z = getPos()
+            tile = getFirstTile(x, y, Player.Map)
+
+            if DigGround and tile:
+                Target.TargetExecute(x, y, z, tile.StaticId)
             else:
-                Target.TargetExecute(x + position_offset_x, y + position_offset_y, z)
-            
+                Target.TargetExecute(x + OffsetX, y + OffsetY, z + OffsetZ)
+
+            if not MultiSwing:
+                break
+
+        digCount -= 1
         Misc.Pause(1000)
-        
-    
-def callPetFood():
-    if not Timer.Check("PetFood"):
-        petfood(Misc, Player, Mobiles, Items, Spells, Timer)
-        Misc.Pause(1000)
-        Timer.Create("PetFood", 5 * 60 * 1000)
-        
 
-# RUN
-# ===============================
 
-Misc.SendMessage("START", colorful())
-Misc.SendMessage("==============", 1150)
+def main():
+    while True:
+        for rune in MiningRunes:
+            goHome()
+            organize()
+            restock()
+            if MakeTools:
+                makeTinkerTools()
+                makeShovels()
+            goMiningPoint(rune)
+            mining()
 
-while True:
-    
-    for rune in runes:
-        
-        callPetFood()
-        OrganizeToBank(container_serial)
-        RecallWithAtlas(runic_atlas_serial, rune)
-        mining()
-        melting(pet_serial)
+
+if __name__ == "__main__":
+    main()

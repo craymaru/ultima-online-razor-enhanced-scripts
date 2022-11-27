@@ -3,20 +3,14 @@ def getSkillValue():
     Misc.SendMessage("Magery: " + str(value), 55)
     return value
 
-
-def spin():
-    for d in ["South", "Left", "West", "Up", "North", "Right", "East", "Down"]:
-        Player.Walk(d)
-    
     
 def meditation():
     if Player.Mana < (Player.ManaMax * 0.65):
         while Player.Mana < (Player.ManaMax * 0.90):
-            spin()
-#            if not Player.BuffsExist("Meditation"):
-#                Player.UseSkill("Meditation")
-#                Misc.Pause(10000)
-#            Misc.Pause(50)
+            if not Player.BuffsExist("Meditation"):
+                Player.UseSkill("Meditation")
+                Misc.Pause(10000)
+            Misc.Pause(50)
 
 def trainMagery(skill_value):
     

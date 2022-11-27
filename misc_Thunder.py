@@ -2,16 +2,16 @@ from System.Collections.Generic import List
 from System import Byte
 
 
-
 def filterBarracoon():
     # FILTER BARRACOON
     filter = Mobiles.Filter()
     filter.Enabled = True
     filter.RangeMax = 10
     filter.Name = "Barracoon"
-    filter.Notorieties = List[Byte](bytes([6])) #1:cyan 2:green 3:gray 4:criminal 5:orange 6:red 7:yellow
+    # 1:cyan 2:green 3:gray 4:criminal 5:orange 6:red 7:yellow
+    filter.Notorieties = List[Byte](bytes([6]))
     return filter
-    
+
 
 def findNearestMobile(filter):
     # FIND NEAREST MOBILE
@@ -25,7 +25,7 @@ def castThunderStorm():
     Spells.CastSpellweaving("Thunderstorm")
     Misc.Pause(100)
 
-    
+
 def castArcaneEmpowerment():
     # CAST ARCANE EMPOWERMENT
     if not Player.BuffsExist("Arcane Enpowerment"):
@@ -42,7 +42,7 @@ def castCorpseSkin(mobile):
         Target.TargetExecute(mobile)
         Timer.Create("Corpse Skin", 20000)
 
-    
+
 def castWildfire(mobile):
     # CAST WILDFIRE
     Spells.CastSpellweaving("Wildfire")
@@ -55,7 +55,7 @@ def castWordOfDeath(mobile):
     Spells.CastSpellweaving("Word Of Death")
     Target.WaitForTarget(5000, False)
     Target.TargetExecute(mobile)
-    
+
 
 def filterSkull():
     # FILTER SKULL
@@ -77,7 +77,7 @@ def activateChampion(filter):
         Misc.Pause(200)
         Target.TargetExecute(skull)
 
-        
+
 def filterPentagram():
     # FILTER PENTAGRAM
     filter = Items.Filter()
@@ -89,7 +89,7 @@ def filterPentagram():
     return filter
 
 
-def isExistPentagram(filter):
+def isPentagramExist(filter):
     # FIND PENTAGRAM
     items = Items.ApplyFilter(filter)
     item = Items.Select(items, "Nearest")
@@ -98,15 +98,16 @@ def isExistPentagram(filter):
     else:
         return False
 
-# FILTER INSTANCES
+
+# FILTERS
 barracoonFilter = filterBarracoon()
 skullFilter = filterSkull()
 pentagramFilter = filterPentagram()
 
 while True:
-    
+
     castArcaneEmpowerment()
-    
+
     barracoon = findNearestMobile(barracoonFilter)
     if barracoon:
         if barracoon.Hits <= barracoon.HitsMax * 0.3:
@@ -116,6 +117,6 @@ while True:
             castWildfire(barracoon)
     else:
         castThunderStorm()
-        
-    if isExistPentagram(pentagramFilter):
+
+    if isPentagramExist(pentagramFilter):
         activateChampion(skullFilter)
